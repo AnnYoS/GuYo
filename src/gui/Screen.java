@@ -149,6 +149,8 @@ public class Screen extends JFrame {
                     }
                 }
             }
+            revalidate();
+            repaint();
         });
 
         maximize.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,7 +169,53 @@ public class Screen extends JFrame {
             maximize.setImageOnButton(MAXIMAZE_BLACK);
         }
 
-        reduce.addActionListener(e -> setExtendedState(JFrame.HIDE_ON_CLOSE));
+        reduce.addActionListener(e -> {
+            setExtendedState(JFrame.HIDE_ON_CLOSE);
+            int x = 0, y = 0;
+            if (!fullscreen) {
+                GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
+                x = maximumWindowBound.width;
+                y = maximumWindowBound.height;
+                setExtendedState(JFrame.MAXIMIZED_BOTH);
+                fullscreen = true;
+            } else {
+                x = DEFAULT_SCREEN_WIDTH;
+                y = DEFAULT_SCREEN_HEIGHT;
+                setSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+                fullscreen = false;
+            }
+
+            main.resizePanel(x, y, withtitlebar);
+            if (withtitlebar) {
+                titlebar.resizeTitlebar(x);
+                for (Component c : titlebar.getComponents()) {
+                    if (c.equals(exit)) {
+                        c.setLocation(x - 45, 0);
+                    }
+                    if (c.equals(maximize)) {
+                        c.setLocation(titlebar.getWidth() - 90, 0);
+                    }
+                    if (c.equals(reduce)) {
+                        c.setLocation(titlebar.getWidth() - 135, 0);
+                    }
+                }
+            } else {
+                for (Component c : main.getComponents()) {
+                    if (c.equals(exit)) {
+                        c.setLocation(x - 45, 0);
+                    }
+                    if (c.equals(maximize)) {
+                        c.setLocation(main.getWidth() - 90, 0);
+                    }
+                    if (c.equals(reduce)) {
+                        c.setLocation(main.getWidth() - 135, 0);
+                    }
+                }
+            }
+            revalidate();
+            repaint();
+        });
 
         reduce.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
