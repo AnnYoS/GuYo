@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.*;
 
+import java.io.File;
+
 import static util.Constant.*;
 
 public class DefaultButton extends JButton {
@@ -23,5 +25,9 @@ public class DefaultButton extends JButton {
         }
         setBorderPainted(false);
         setBounds(x, y, width, height);
+    }
+
+    public void setImageOnButton(String path){
+        setIcon(new ImageIcon(path));
     }
 }

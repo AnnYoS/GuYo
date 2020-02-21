@@ -1,6 +1,7 @@
 package util;
 
 import java.awt.*;
+import java.io.File;
 
 public class Constant {
 
@@ -13,4 +14,7 @@ public class Constant {
 
     public static final Color DEFAULT_WHITE = new Color(230, 230, 230);
     public static final Color DEFAULT_TITLEBAR_WHITE_COLOR = new Color(210, 210, 210);
+
+    public static final String CROSS_BLACK = "assets/crossblack.png";
+    public static final String CROSS_WHITE = "assets/crosswhite.png";
 }

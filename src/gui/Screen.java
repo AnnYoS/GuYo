@@ -95,6 +95,11 @@ public class Screen extends JFrame {
         }
 
         exit.addActionListener(e -> System.exit(0));
+        if(dark){
+            exit.setImageOnButton(CROSS_WHITE);
+        } else {
+            exit.setImageOnButton(CROSS_BLACK);
+        }
         maximize.addActionListener(e -> {
             if (!fullscreen) {
                 GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
