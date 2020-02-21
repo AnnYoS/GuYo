@@ -39,8 +39,6 @@ public class Screen extends JFrame {
         setVisible(true);
     }
 
-
-
     /**
      * set the theme in dark mode
      */
@@ -83,16 +81,11 @@ public class Screen extends JFrame {
         if(withtitlebar) {
             titlebar = new Titlebar(width, dark);
             titlebar.setLayout(null);
-
-            exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, titlebar.getWidth() - 45, 0, dark, true);
-            maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, titlebar.getWidth() - 90, 0, dark, true);
-            reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, titlebar.getWidth() - 135, 0, dark, true);
-
-        } else {
-            exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, main.getWidth() - 45, 0, dark, false);
-            maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, main.getWidth() - 90, 0, dark, false);
-            reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, main.getWidth() - 135, 0, dark, false);
         }
+
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, true);
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, true);
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, true);
 
         exit.addActionListener(e -> System.exit(0));
 
@@ -114,59 +107,47 @@ public class Screen extends JFrame {
             exit.setImageOnButton(CROSS_BLACK);
         }
         maximize.addActionListener(e -> {
+            int x = 0, y = 0;
             if (!fullscreen) {
                 GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
-
+                x = maximumWindowBound.width;
+                y = maximumWindowBound.height;
                 setExtendedState(JFrame.MAXIMIZED_BOTH);
-                main.resizePanel(maximumWindowBound.width, maximumWindowBound.height, withtitlebar);
-                if (withtitlebar) {
-                    titlebar.resizeTitlebar(maximumWindowBound.width);
-                    for (Component c : titlebar.getComponents()) {
-                        if (c.equals(exit)) {
-                            c.setLocation(titlebar.getWidth() - 45, 0);
-                        }
-                        if (c.equals(maximize)) {
-                            c.setLocation(titlebar.getWidth() - 90, 0);
-                        }
-                    }
-
-                } else {
-                    for (Component c : main.getComponents()) {
-                        if (c.equals(exit)) {
-                            c.setLocation(main.getWidth() - 45, 0);
-                        }
-                        if (c.equals(maximize)) {
-                            c.setLocation(main.getWidth() - 90, 0);
-                        }
-                    }
-                }
                 fullscreen = true;
             } else {
+                x = DEFAULT_SCREEN_WIDTH;
+                y = DEFAULT_SCREEN_HEIGHT;
                 setSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-                main.resizePanel(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, withtitlebar);
-                if (withtitlebar) {
-                    titlebar.resizeTitlebar(DEFAULT_SCREEN_WIDTH);
-                    for (Component c : titlebar.getComponents()) {
-                        if (c.equals(exit)) {
-                            c.setLocation(titlebar.getWidth() - 45, 0);
-                        }
-                        if (c.equals(maximize)) {
-                            c.setLocation(titlebar.getWidth() - 90, 0);
-                        }
-                    }
+                fullscreen = false;
+            }
 
-                } else {
-                    for (Component c : main.getComponents()) {
-                        if (c.equals(exit)) {
-                            c.setLocation(main.getWidth() - 45, 0);
-                        }
-                        if (c.equals(maximize)) {
-                            c.setLocation(main.getWidth() - 90, 0);
-                        }
+            main.resizePanel(x, y, withtitlebar);
+            if (withtitlebar) {
+                titlebar.resizeTitlebar(x);
+                for (Component c : titlebar.getComponents()) {
+                    if (c.equals(exit)) {
+                        c.setLocation(x - 45, 0);
+                    }
+                    if (c.equals(maximize)) {
+                        c.setLocation(titlebar.getWidth() - 90, 0);
+                    }
+                    if (c.equals(reduce)) {
+                        c.setLocation(titlebar.getWidth() - 135, 0);
                     }
                 }
-                fullscreen = false;
+            } else {
+                for (Component c : main.getComponents()) {
+                    if (c.equals(exit)) {
+                        c.setLocation(x - 45, 0);
+                    }
+                    if (c.equals(maximize)) {
+                        c.setLocation(main.getWidth() - 90, 0);
+                    }
+                    if (c.equals(reduce)) {
+                        c.setLocation(main.getWidth() - 135, 0);
+                    }
+                }
             }
         });
 
