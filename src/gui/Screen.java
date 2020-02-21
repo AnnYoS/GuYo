@@ -93,26 +93,35 @@ public class Screen extends JFrame {
         exit.addActionListener(e -> System.exit(0));
 
         maximize.setBackground(Color.CYAN);
-        maximize.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(!fullscreen) {
-                    GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                    Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
+        maximize.addActionListener(e -> {
+            if (!fullscreen) {
+                GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
 
-                    setExtendedState(JFrame.MAXIMIZED_BOTH);
-                    main.resizePanel(maximumWindowBound.width, maximumWindowBound.height);
+                setExtendedState(JFrame.MAXIMIZED_BOTH);
+                main.resizePanel(maximumWindowBound.width, maximumWindowBound.height);
+                if (withtitlebar) {
                     titlebar.resizeTitlebar(maximumWindowBound.width);
-                    for(Component c : titlebar.getComponents()){
-                        if(c.equals(exit)){
+                    for (Component c : titlebar.getComponents()) {
+                        if (c.equals(exit)) {
                             c.setLocation(titlebar.getWidth() - 45, 0);
                         }
-                        if(c.equals(maximize)){
+                        if (c.equals(maximize)) {
                             c.setLocation(titlebar.getWidth() - 90, 0);
                         }
                     }
-                    fullscreen = true;
+
+                } else {
+                    for (Component c : main.getComponents()) {
+                        if (c.equals(exit)) {
+                            c.setLocation(main.getWidth() - 45, 0);
+                        }
+                        if (c.equals(maximize)) {
+                            c.setLocation(main.getWidth() - 90, 0);
+                        }
+                    }
                 }
+                fullscreen = true;
             }
         });
 
@@ -124,7 +133,8 @@ public class Screen extends JFrame {
             setLayout(new BorderLayout());
             add(titlebar);
         } else {
-            main.add(exit, maximize);
+            main.add(exit);
+            main.add(maximize);
         }
         add(main);
 
