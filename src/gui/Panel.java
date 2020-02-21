@@ -15,7 +15,7 @@ public class Panel extends JPanel {
         }
 
         if(withtitlebar){
-            setSize(width,height - 30);
+            setSize(width,height - DEFAULT_TITLEBAR_HEIGHT);
         } else {
             setSize(width, height);
         }
@@ -35,7 +35,12 @@ public class Panel extends JPanel {
         setBackground(DEFAULT_WHITE);
     }
 
-    public void resizePanel(int width, int height){
-        setSize(width, height);
+    public void resizePanel(int width, int height, boolean withtitlebar){
+        if(withtitlebar){
+            setSize(width, height - DEFAULT_TITLEBAR_HEIGHT);
+        } else {
+            setSize(width, height);
+        }
+
     }
 }

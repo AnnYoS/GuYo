@@ -7,6 +7,7 @@ public class Constant {
 
     public static final int DEFAULT_SCREEN_WIDTH = 640;
     public static final int DEFAULT_SCREEN_HEIGHT = 480;
+    public static final int DEFAULT_TITLEBAR_HEIGHT = 30;
     public static final int BORDER = 5;
 
     public static final Color DEFAULT_BLACK = new Color(40, 40, 40);

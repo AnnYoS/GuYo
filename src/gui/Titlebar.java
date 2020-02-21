@@ -16,7 +16,7 @@ public class Titlebar extends JPanel {
         } else {
             setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
         }
-        setSize(width, 30);
+        setSize(width, DEFAULT_TITLEBAR_HEIGHT);
     }
 
     /**
@@ -34,6 +34,6 @@ public class Titlebar extends JPanel {
     }
 
     public void resizeTitlebar(int width){
-        setSize(width, 30);
+        setSize(width, DEFAULT_TITLEBAR_HEIGHT);
     }
 }

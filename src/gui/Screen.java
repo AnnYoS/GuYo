@@ -84,14 +84,14 @@ public class Screen extends JFrame {
             titlebar = new Titlebar(width, dark);
             titlebar.setLayout(null);
 
-            exit = new DefaultButton(45, 30, titlebar.getWidth() - 45, 0, dark, true);
-            maximize = new DefaultButton(45, 30, titlebar.getWidth() - 90, 0, dark, true);
-            reduce = new DefaultButton(45, 30, titlebar.getWidth() - 135, 0, dark, true);
+            exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, titlebar.getWidth() - 45, 0, dark, true);
+            maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, titlebar.getWidth() - 90, 0, dark, true);
+            reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, titlebar.getWidth() - 135, 0, dark, true);
 
         } else {
-            exit = new DefaultButton(45, 30, main.getWidth() - 45, 0, dark, false);
-            maximize = new DefaultButton(45, 30, main.getWidth() - 90, 0, dark, false);
-            reduce = new DefaultButton(45, 30, main.getWidth() - 135, 0, dark, true);
+            exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, main.getWidth() - 45, 0, dark, false);
+            maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, main.getWidth() - 90, 0, dark, false);
+            reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, main.getWidth() - 135, 0, dark, false);
         }
 
         exit.addActionListener(e -> System.exit(0));
@@ -106,7 +106,7 @@ public class Screen extends JFrame {
                 Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
 
                 setExtendedState(JFrame.MAXIMIZED_BOTH);
-                main.resizePanel(maximumWindowBound.width, maximumWindowBound.height);
+                main.resizePanel(maximumWindowBound.width, maximumWindowBound.height, withtitlebar);
                 if (withtitlebar) {
                     titlebar.resizeTitlebar(maximumWindowBound.width);
                     for (Component c : titlebar.getComponents()) {
@@ -131,7 +131,7 @@ public class Screen extends JFrame {
                 fullscreen = true;
             } else {
                 setSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-                main.resizePanel(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+                main.resizePanel(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, withtitlebar);
                 if (withtitlebar) {
                     titlebar.resizeTitlebar(DEFAULT_SCREEN_WIDTH);
                     for (Component c : titlebar.getComponents()) {
