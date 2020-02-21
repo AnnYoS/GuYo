@@ -122,6 +122,31 @@ public class Screen extends JFrame {
                     }
                 }
                 fullscreen = true;
+            } else {
+                setSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+                main.resizePanel(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+                if (withtitlebar) {
+                    titlebar.resizeTitlebar(DEFAULT_SCREEN_WIDTH);
+                    for (Component c : titlebar.getComponents()) {
+                        if (c.equals(exit)) {
+                            c.setLocation(titlebar.getWidth() - 45, 0);
+                        }
+                        if (c.equals(maximize)) {
+                            c.setLocation(titlebar.getWidth() - 90, 0);
+                        }
+                    }
+
+                } else {
+                    for (Component c : main.getComponents()) {
+                        if (c.equals(exit)) {
+                            c.setLocation(main.getWidth() - 45, 0);
+                        }
+                        if (c.equals(maximize)) {
+                            c.setLocation(main.getWidth() - 90, 0);
+                        }
+                    }
+                }
+                fullscreen = false;
             }
         });
 
