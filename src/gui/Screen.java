@@ -88,6 +88,19 @@ public class Screen extends JFrame {
         reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, true);
 
         exit.addActionListener(e -> System.exit(0));
+
+        exit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exit.setBackground(DEFAULT_RED);
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exit.restoreColor();
+            }
+        });
+
+
+
         if(dark){
             exit.setImageOnButton(CROSS_WHITE);
         } else {
@@ -137,7 +150,40 @@ public class Screen extends JFrame {
                 }
             }
         });
+
+        maximize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                maximize.setGrey();
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                maximize.restoreColor();
+            }
+        });
+
+        if(dark){
+            maximize.setImageOnButton(MAXIMAZE_WHITE);
+        } else {
+            maximize.setImageOnButton(MAXIMAZE_BLACK);
+        }
+
         reduce.addActionListener(e -> setExtendedState(JFrame.HIDE_ON_CLOSE));
+
+        reduce.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                reduce.setGrey();
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                reduce.restoreColor();
+            }
+        });
+
+        if(dark){
+            reduce.setImageOnButton(REDUCE_WHITE);
+        } else {
+            reduce.setImageOnButton(REDUCE_BLACK);
+        }
 
         if(withtitlebar) {
 
