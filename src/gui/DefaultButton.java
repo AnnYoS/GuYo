@@ -24,8 +24,4 @@ public class DefaultButton extends JButton {
         setBorderPainted(false);
         setBounds(x, y, width, height);
     }
-
-    public void moveButtonTo(int x, int y){
-        setLocation(x, y);
-    }
 }

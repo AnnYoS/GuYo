@@ -68,6 +68,7 @@ public class Screen extends JFrame {
      * @param width of the window
      * @param height of the window
      * @param dark if the window is in dark mode
+     * @param withtitlebar if the window have a titlebar
      */
     private void initWindow(int width, int height, boolean dark, boolean withtitlebar){
         main = new Panel(width, height, dark, withtitlebar);
@@ -77,7 +78,7 @@ public class Screen extends JFrame {
         this.havetitlebar = withtitlebar;
         this.fullscreen = false;
 
-        DefaultButton exit, maximize;
+        DefaultButton exit, maximize, reduce;
 
         if(withtitlebar) {
             titlebar = new Titlebar(width, dark);
@@ -85,14 +86,15 @@ public class Screen extends JFrame {
 
             exit = new DefaultButton(45, 30, titlebar.getWidth() - 45, 0, dark, true);
             maximize = new DefaultButton(45, 30, titlebar.getWidth() - 90, 0, dark, true);
+            reduce = new DefaultButton(45, 30, titlebar.getWidth() - 135, 0, dark, true);
+
         } else {
             exit = new DefaultButton(45, 30, main.getWidth() - 45, 0, dark, false);
             maximize = new DefaultButton(45, 30, main.getWidth() - 90, 0, dark, false);
+            reduce = new DefaultButton(45, 30, main.getWidth() - 135, 0, dark, true);
         }
 
         exit.addActionListener(e -> System.exit(0));
-
-        maximize.setBackground(Color.CYAN);
         maximize.addActionListener(e -> {
             if (!fullscreen) {
                 GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -149,17 +151,20 @@ public class Screen extends JFrame {
                 fullscreen = false;
             }
         });
+        reduce.addActionListener(e -> setExtendedState(JFrame.HIDE_ON_CLOSE));
 
         if(withtitlebar) {
 
             titlebar.add(exit);
             titlebar.add(maximize);
+            titlebar.add(reduce);
 
             setLayout(new BorderLayout());
             add(titlebar);
         } else {
             main.add(exit);
             main.add(maximize);
+            main.add(reduce);
         }
         add(main);
 
@@ -179,8 +184,5 @@ public class Screen extends JFrame {
         } else {
             main.add(apptitle);
         }
-    }
-
-    public static void setFullScreen(){
     }
 }
