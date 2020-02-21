@@ -34,4 +34,8 @@ public class Panel extends JPanel {
     public void setLightMode(){
         setBackground(DEFAULT_WHITE);
     }
+
+    public void resizePanel(int width, int height){
+        setSize(width, height);
+    }
 }

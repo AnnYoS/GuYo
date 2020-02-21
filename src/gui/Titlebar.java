@@ -2,6 +2,9 @@ package gui;
 
 import javax.swing.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static util.Constant.*;
 
 public class Titlebar extends JPanel {
@@ -28,5 +31,9 @@ public class Titlebar extends JPanel {
      */
     public void setLightmode(){
         setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
+    }
+
+    public void resizeTitlebar(int width){
+        setSize(width, 30);
     }
 }

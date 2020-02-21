@@ -15,6 +15,7 @@ public class Screen extends JFrame {
     private Titlebar titlebar;
     private boolean dark;
     private boolean havetitlebar;
+    private boolean fullscreen;
 
     public Screen(int width, int height, boolean dark, boolean withtitlebar) {
         super();
@@ -37,6 +38,8 @@ public class Screen extends JFrame {
 
         setVisible(true);
     }
+
+
 
     /**
      * set the theme in dark mode
@@ -72,29 +75,61 @@ public class Screen extends JFrame {
 
         this.dark = dark;
         this.havetitlebar = withtitlebar;
+        this.fullscreen = false;
 
-        DefaultButton exit = new DefaultButton(45, 30, width - 45, 0, dark, withtitlebar);
-        exit.addActionListener(e -> System.exit(0));
+        DefaultButton exit, maximize;
 
         if(withtitlebar) {
             titlebar = new Titlebar(width, dark);
             titlebar.setLayout(null);
 
+            exit = new DefaultButton(45, 30, titlebar.getWidth() - 45, 0, dark, true);
+            maximize = new DefaultButton(45, 30, titlebar.getWidth() - 90, 0, dark, true);
+        } else {
+            exit = new DefaultButton(45, 30, main.getWidth() - 45, 0, dark, false);
+            maximize = new DefaultButton(45, 30, main.getWidth() - 90, 0, dark, false);
+        }
+
+        exit.addActionListener(e -> System.exit(0));
+
+        maximize.setBackground(Color.CYAN);
+        maximize.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!fullscreen) {
+                    GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                    Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
+
+                    setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    main.resizePanel(maximumWindowBound.width, maximumWindowBound.height);
+                    titlebar.resizeTitlebar(maximumWindowBound.width);
+                    for(Component c : titlebar.getComponents()){
+                        if(c.equals(exit)){
+                            c.setLocation(titlebar.getWidth() - 45, 0);
+                        }
+                        if(c.equals(maximize)){
+                            c.setLocation(titlebar.getWidth() - 90, 0);
+                        }
+                    }
+                    fullscreen = true;
+                }
+            }
+        });
+
+        if(withtitlebar) {
+
             titlebar.add(exit);
+            titlebar.add(maximize);
 
             setLayout(new BorderLayout());
             add(titlebar);
         } else {
-            main.add(exit);
+            main.add(exit, maximize);
         }
         add(main);
 
         /*important*/
         setUndecorated(true);
-    }
-
-    private void initButton(){
-
     }
 
     /**
@@ -109,5 +144,8 @@ public class Screen extends JFrame {
         } else {
             main.add(apptitle);
         }
+    }
+
+    public static void setFullScreen(){
     }
 }
