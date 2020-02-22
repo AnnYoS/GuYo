@@ -184,6 +184,7 @@ public class Screen extends JFrame {
                 setExtendedState(JFrame.MAXIMIZED_BOTH);
                 fullscreen = true;
                 setLocation(0, 0);
+
             } else {
                 x = DEFAULT_SCREEN_WIDTH;
                 y = DEFAULT_SCREEN_HEIGHT;
