@@ -3,8 +3,7 @@ package gui;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import static util.Constant.*;
 
@@ -16,6 +15,12 @@ public class Screen extends JFrame {
     private boolean dark;
     private boolean havetitlebar;
     private boolean fullscreen;
+
+    private int oldDragX;
+    private int oldDragY;
+
+    private int posX;
+    private int posY;
 
     public Screen(int width, int height, boolean dark, boolean withtitlebar) {
         super();
@@ -37,6 +42,69 @@ public class Screen extends JFrame {
         initWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, dark, withtitlebar);
 
         setVisible(true);
+
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        posX = (int) ((dimension.getWidth() - this.getWidth()) / 2);
+        posY = (int) ((dimension.getHeight() - this.getHeight()) / 2);
+        this.setLocation(posX, posY);
+
+        this.revalidate();
+        this.repaint();
+
+        oldDragX = 0;
+        oldDragY = 0;
+
+        titlebar.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+                if (oldDragX != 0 && oldDragY != 0) {
+                    int moveX = oldDragX - e.getXOnScreen();
+                    int moveY = oldDragY - e.getYOnScreen();
+
+                    posX = getLocation().x - moveX;
+                    posY = getLocation().y - moveY;
+
+                    setLocation(posX, posY);
+                }
+
+                oldDragX = e.getXOnScreen();
+                oldDragY = e.getYOnScreen();
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+            }
+        });
+
+        titlebar.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                oldDragX = 0;
+                oldDragY = 0;
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
     }
 
     /**
@@ -115,11 +183,13 @@ public class Screen extends JFrame {
                 y = maximumWindowBound.height;
                 setExtendedState(JFrame.MAXIMIZED_BOTH);
                 fullscreen = true;
+                setLocation(0, 0);
             } else {
                 x = DEFAULT_SCREEN_WIDTH;
                 y = DEFAULT_SCREEN_HEIGHT;
                 setSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
                 fullscreen = false;
+                setLocation(posX, posY);
             }
 
             main.resizePanel(x, y, withtitlebar);
@@ -149,6 +219,7 @@ public class Screen extends JFrame {
                     }
                 }
             }
+
             revalidate();
             repaint();
         });
@@ -171,48 +242,15 @@ public class Screen extends JFrame {
 
         reduce.addActionListener(e -> {
             setExtendedState(JFrame.HIDE_ON_CLOSE);
-            int x = 0, y = 0;
-            if (!fullscreen) {
+
+            if (fullscreen) {
                 GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
                 Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
-                x = maximumWindowBound.width;
-                y = maximumWindowBound.height;
-                setExtendedState(JFrame.MAXIMIZED_BOTH);
-                fullscreen = true;
-            } else {
-                x = DEFAULT_SCREEN_WIDTH;
-                y = DEFAULT_SCREEN_HEIGHT;
-                setSize(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-                fullscreen = false;
+                int x = maximumWindowBound.width;
+                int y = maximumWindowBound.height;
+                setSize(new Dimension(x, y));
             }
 
-            main.resizePanel(x, y, withtitlebar);
-            if (withtitlebar) {
-                titlebar.resizeTitlebar(x);
-                for (Component c : titlebar.getComponents()) {
-                    if (c.equals(exit)) {
-                        c.setLocation(x - 45, 0);
-                    }
-                    if (c.equals(maximize)) {
-                        c.setLocation(titlebar.getWidth() - 90, 0);
-                    }
-                    if (c.equals(reduce)) {
-                        c.setLocation(titlebar.getWidth() - 135, 0);
-                    }
-                }
-            } else {
-                for (Component c : main.getComponents()) {
-                    if (c.equals(exit)) {
-                        c.setLocation(x - 45, 0);
-                    }
-                    if (c.equals(maximize)) {
-                        c.setLocation(main.getWidth() - 90, 0);
-                    }
-                    if (c.equals(reduce)) {
-                        c.setLocation(main.getWidth() - 135, 0);
-                    }
-                }
-            }
             revalidate();
             repaint();
         });
