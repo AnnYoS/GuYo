@@ -52,20 +52,11 @@ public class DefaultScreen extends Screen {
         }
 
         DefaultButton exit, maximize, reduce;
-        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, true);
-        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, true);
-        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, true);
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, true, "assets/crossblack.png", "assets/crosswhite.png");
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, true, "assets/maximazeblack.png", "assets/maximazewhite.png");
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, true, "assets/reduceblack.png", "assets/reducewhite.png");
         initWindowButton(exit, maximize, reduce, main, titlebar);
 
-        if(dark){
-            exit.setImageOnButton(CROSS_WHITE);
-            maximize.setImageOnButton(MAXIMIZE_WHITE);
-            reduce.setImageOnButton(REDUCE_WHITE);
-        } else {
-            exit.setImageOnButton(CROSS_BLACK);
-            maximize.setImageOnButton(MAXIMIZE_BLACK);
-            reduce.setImageOnButton(REDUCE_BLACK);
-        }
 
         exit.changeColorWhenMouseOn(DEFAULT_RED, DEFAULT_RED);
         maximize.changeColorWhenMouseOn(DEFAULT_DARK_GREY, DEFAULT_LIGHT_GREY);

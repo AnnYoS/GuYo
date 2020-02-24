@@ -1,6 +1,7 @@
 package gui.button;
 
 import gui.GuYoComponent;
+import gui.view.Images;
 
 import javax.swing.*;
 
@@ -13,12 +14,14 @@ public abstract class AbstractButton extends JButton implements GuYoComponent {
 
     protected boolean dark;
     protected boolean withtitlebar;
+    protected Images images;
 
-    public AbstractButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar){
+    public AbstractButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, String darkimage, String lightimage){
         super();
         this.dark = dark;
         this.withtitlebar = withtitlebar;
         setBounds(x, y, width, height);
+        images = new Images(darkimage, lightimage);
         setDefaultColor();
     }
 
@@ -32,6 +35,7 @@ public abstract class AbstractButton extends JButton implements GuYoComponent {
         } else {
             setBackground(DEFAULT_BLACK);
         }
+        setImageOnButton(images.getLightimage());
     }
 
     /**
@@ -44,6 +48,7 @@ public abstract class AbstractButton extends JButton implements GuYoComponent {
         } else {
             setBackground(DEFAULT_WHITE);
         }
+        setImageOnButton(images.getDarkimage());
     }
 
     /**
@@ -56,12 +61,14 @@ public abstract class AbstractButton extends JButton implements GuYoComponent {
             } else {
                 setBackground(DEFAULT_BLACK);
             }
+            setImageOnButton(images.getLightimage());
         } else {
             if(withtitlebar) {
                 setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
             } else {
                 setBackground(DEFAULT_WHITE);
             }
+            setImageOnButton(images.getDarkimage());
         }
     }
 
