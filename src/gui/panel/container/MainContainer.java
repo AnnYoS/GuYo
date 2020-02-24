@@ -1,5 +1,6 @@
 package gui.panel.container;
 
+import gui.button.AbstractButton;
 import gui.panel.Panel;
 
 import static util.Constant.*;
@@ -11,9 +12,35 @@ public abstract class MainContainer extends Panel {
     public MainContainer(int width, int height, boolean dark, boolean withtitlebar) {
         super(width, height, dark);
         this.havetitlebar = withtitlebar;
-
+        if(dark){
+            setBackground(DEFAULT_BLACK);
+        } else {
+            setBackground(DEFAULT_WHITE);
+        }
         if(withtitlebar) {
             setSize(width, height - DEFAULT_TITLEBAR_HEIGHT);
+        }
+    }
+
+    /**
+     * set the dark mode
+     */
+    @Override
+    public void setDarkMode() {
+        setBackground(DEFAULT_BLACK);
+        for(AbstractButton b : buttons){
+            b.setDarkMode();
+        }
+    }
+
+    /**
+     * set the light mode
+     */
+    @Override
+    public void setLightMode() {
+        setBackground(DEFAULT_WHITE);
+        for(AbstractButton b : buttons){
+            b.setLightMode();
         }
     }
 

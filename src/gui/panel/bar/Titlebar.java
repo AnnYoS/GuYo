@@ -21,10 +21,10 @@ public abstract class Titlebar extends Panel {
      */
     @Override
     public void setDarkMode() {
-        for(AbstractButton b : buttons){
+        setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
+        for (AbstractButton b : buttons) {
             b.setDarkMode();
         }
-        setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
     }
 
     /**
@@ -32,10 +32,10 @@ public abstract class Titlebar extends Panel {
      */
     @Override
     public void setLightMode() {
+        setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
         for(AbstractButton b : buttons){
             b.setLightMode();
         }
-        setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
     }
 
     /**
