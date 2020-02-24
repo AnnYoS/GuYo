@@ -43,10 +43,8 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * initialize the window
      * @param width of the window
      * @param height of the window
-     * @param dark or not
-     * @param withtitlebar or not
      */
-    protected abstract void initWindow(int width, int height, boolean dark, boolean withtitlebar);
+    protected abstract void initWindow(int width, int height);
 
     /**
      * set the theme in dark

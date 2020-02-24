@@ -18,7 +18,7 @@ public class DefaultScreen extends Screen {
         super(width, height, dark, withtitlebar);
 
         //initialize the window
-        initWindow(width, height, dark, withtitlebar);
+        initWindow(width, height);
 
         setVisible(true);
     }
@@ -27,7 +27,7 @@ public class DefaultScreen extends Screen {
         super(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, dark, withtitlebar);
 
         //initialize the window
-        initWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, dark, withtitlebar);
+        initWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
 
         setVisible(true);
     }
@@ -36,34 +36,33 @@ public class DefaultScreen extends Screen {
      * create a new window without basic swing title bar
      * @param width of the window
      * @param height of the window
-     * @param dark if the window is in dark mode
-     * @param withtitlebar if the window have a titlebar
      */
-    public void initWindow(int width, int height, boolean dark, boolean withtitlebar){
-        DefaultPanel main = new DefaultPanel(width, height, dark, withtitlebar);
+    public void initWindow(int width, int height){
+        DefaultPanel main = new DefaultPanel(width, height, this.dark, havetitlebar);
         main.setLayout(null);
         containers.add(main);
 
         DefaultTitlebar titlebar = null;
-        if(withtitlebar) {
+        if(havetitlebar) {
             titlebar = new DefaultTitlebar(width, dark);
             titlebar.setLayout(null);
             containers.add(titlebar);
         }
 
         DefaultButton exit, maximize, reduce;
-        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, havetitlebar, "assets/crossblack.png", "assets/crosswhite.png");
-        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, havetitlebar, "assets/maximazeblack.png", "assets/maximazewhite.png");
-        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, havetitlebar, "assets/reduceblack.png", "assets/reducewhite.png");
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, this.dark, havetitlebar, "assets/crossblack.png", "assets/crosswhite.png");
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, this.dark, havetitlebar, "assets/maximazeblack.png", "assets/maximazewhite.png");
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, this.dark, havetitlebar, "assets/reduceblack.png", "assets/reducewhite.png");
         initWindowButton(exit, maximize, reduce, main, titlebar);
 
 
         exit.changeColorWhenMouseOn(DEFAULT_RED, DEFAULT_RED);
-        maximize.changeColorWhenMouseOn(DEFAULT_DARK_GREY, DEFAULT_LIGHT_GREY);
-        reduce.changeColorWhenMouseOn(DEFAULT_DARK_GREY, DEFAULT_LIGHT_GREY);
+        maximize.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON);
+        reduce.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON);
 
         ScreenDragger drag = new ScreenDragger(this);
-        if(withtitlebar) {
+        if(havetitlebar) {
+            assert titlebar != null;
             titlebar.addButtons(exit, maximize, reduce);
             titlebar.addMouseMotionListener(drag);
             titlebar.addMouseListener(drag);
