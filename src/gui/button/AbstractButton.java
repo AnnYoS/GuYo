@@ -9,7 +9,7 @@ import java.awt.*;
 import static util.Constant.*;
 import static util.Constant.DEFAULT_WHITE;
 
-public class AbstractButton extends JButton implements GuYoComponent {
+public abstract class AbstractButton extends JButton implements GuYoComponent {
 
     protected boolean dark;
     protected boolean withtitlebar;
@@ -22,15 +22,28 @@ public class AbstractButton extends JButton implements GuYoComponent {
         setDefaultColor();
     }
 
-
+    /**
+     * set the dark mode
+     */
     @Override
     public void setDarkMode() {
-
+        if(withtitlebar) {
+            setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
+        } else {
+            setBackground(DEFAULT_BLACK);
+        }
     }
 
+    /**
+     * set the light mode
+     */
     @Override
     public void setLightMode() {
-
+        if(withtitlebar) {
+            setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
+        } else {
+            setBackground(DEFAULT_WHITE);
+        }
     }
 
     /**

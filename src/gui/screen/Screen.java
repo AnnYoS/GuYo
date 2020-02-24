@@ -4,7 +4,7 @@ import gui.GuYoComponent;
 import gui.button.DefaultButton;
 import gui.panel.container.MainContainer;
 import gui.panel.Panel;
-import gui.panel.Titlebar;
+import gui.panel.bar.DefaultTitlebar;
 import util.Position2I;
 
 import javax.swing.*;
@@ -53,7 +53,10 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     @Override
     public void setDarkMode() {
-
+        for(Panel p : containers){
+            p.setDarkMode();
+        }
+        dark = true;
     }
 
     /**
@@ -61,7 +64,10 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     @Override
     public void setLightMode() {
-
+        for(Panel p : containers){
+            p.setLightMode();
+        }
+        dark = false;
     }
 
     /**
@@ -84,7 +90,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * @param maximize button
      * @param reduce button
      */
-    protected void initWindowButton(DefaultButton exit, DefaultButton maximize, DefaultButton reduce, MainContainer main, Titlebar titlebar){
+    protected void initWindowButton(DefaultButton exit, DefaultButton maximize, DefaultButton reduce, MainContainer main, DefaultTitlebar titlebar){
         exit.addActionListener(e -> System.exit(0));
 
         maximize.addActionListener(e -> {

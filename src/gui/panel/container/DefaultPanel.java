@@ -2,9 +2,9 @@ package gui.panel.container;
 
 import static util.Constant.*;
 
-public class FitPanel extends MainContainer {
+public class DefaultPanel extends MainContainer {
 
-    public FitPanel(int width, int height, boolean dark, boolean withtitlebar){
+    public DefaultPanel(int width, int height, boolean dark, boolean withtitlebar){
         super(width, height, dark, withtitlebar);
         if(dark){
             setBackground(DEFAULT_BLACK);

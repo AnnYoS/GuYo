@@ -1,8 +1,8 @@
 package gui.screen;
 
 import gui.button.DefaultButton;
-import gui.panel.*;
-import gui.panel.container.FitPanel;
+import gui.panel.bar.DefaultTitlebar;
+import gui.panel.container.DefaultPanel;
 import gui.screen.mouselistener.ScreenDragger;
 
 import javax.swing.*;
@@ -12,9 +12,9 @@ import java.awt.*;
 import static util.Constant.*;
 
 
-public class FitScreen extends Screen {
+public class DefaultScreen extends Screen {
 
-    public FitScreen(int width, int height, boolean dark, boolean withtitlebar) {
+    public DefaultScreen(int width, int height, boolean dark, boolean withtitlebar) {
         super(width, height, dark, withtitlebar);
 
         //initialize the window
@@ -23,7 +23,7 @@ public class FitScreen extends Screen {
         setVisible(true);
     }
 
-    public FitScreen(boolean dark, boolean withtitlebar){
+    public DefaultScreen(boolean dark, boolean withtitlebar){
         super(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, dark, withtitlebar);
 
         //initialize the window
@@ -40,13 +40,13 @@ public class FitScreen extends Screen {
      * @param withtitlebar if the window have a titlebar
      */
     public void initWindow(int width, int height, boolean dark, boolean withtitlebar){
-        FitPanel main = new FitPanel(width, height, dark, withtitlebar);
+        DefaultPanel main = new DefaultPanel(width, height, dark, withtitlebar);
         main.setLayout(null);
         containers.add(main);
 
-        Titlebar titlebar = null;
+        DefaultTitlebar titlebar = null;
         if(withtitlebar) {
-            titlebar = new Titlebar(width, dark);
+            titlebar = new DefaultTitlebar(width, dark);
             titlebar.setLayout(null);
             containers.add(titlebar);
         }
@@ -73,16 +73,12 @@ public class FitScreen extends Screen {
 
         if(withtitlebar) {
 
-            titlebar.add(exit);
-            titlebar.add(maximize);
-            titlebar.add(reduce);
+            titlebar.addButtons(exit, maximize, reduce);
 
             setLayout(new BorderLayout());
             add(titlebar);
         } else {
-            main.add(exit);
-            main.add(maximize);
-            main.add(reduce);
+            main.addButtons(exit, maximize, reduce);
         }
         add(main);
 

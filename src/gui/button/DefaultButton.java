@@ -1,12 +1,6 @@
 package gui.button;
 
-import gui.screen.Screen;
-
-import javax.swing.*;
-
 import java.awt.*;
-
-import static util.Constant.*;
 
 public class DefaultButton extends AbstractButton {
 
