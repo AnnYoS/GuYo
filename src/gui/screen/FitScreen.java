@@ -1,6 +1,6 @@
 package gui.screen;
 
-import gui.WindowButton;
+import gui.button.DefaultButton;
 import gui.panel.*;
 import gui.panel.container.FitPanel;
 import gui.screen.mouselistener.ScreenDragger;
@@ -51,10 +51,10 @@ public class FitScreen extends Screen {
             containers.add(titlebar);
         }
 
-        WindowButton exit, maximize, reduce;
-        exit = new WindowButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, true);
-        maximize = new WindowButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, true);
-        reduce = new WindowButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, true);
+        DefaultButton exit, maximize, reduce;
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, true);
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, true);
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, true);
         initWindowButton(exit, maximize, reduce, main, titlebar);
 
         if(dark){
