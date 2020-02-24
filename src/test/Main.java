@@ -1,6 +1,7 @@
 package test;
 
-import gui.Screen;
+import gui.screen.FitScreen;
+import gui.screen.Screen;
 
 import javax.swing.*;
 
@@ -16,6 +17,6 @@ public class Main {
     }
 
     public static void display(){
-        Screen screen = new Screen(true, true);
+        Screen screen = new FitScreen(false, true);
     }
 }

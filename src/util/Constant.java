@@ -16,7 +16,7 @@ public class Constant {
     public static final Color DEFAULT_WHITE = new Color(230, 230, 230);
     public static final Color DEFAULT_TITLEBAR_WHITE_COLOR = new Color(210, 210, 210);
 
-    public static final Color DEFAULT_RED = new Color(200, 0, 0);
+    public static final Color DEFAULT_RED = new Color(220, 0, 0);
     public static final Color DEFAULT_LIGHT_GREY = new Color(190, 190, 190);
     public static final Color DEFAULT_DARK_GREY = new Color(70, 70, 70);
 
@@ -26,6 +26,6 @@ public class Constant {
     public static final String REDUCE_BLACK = "assets/reduceblack.png";
     public static final String REDUCE_WHITE = "assets/reducewhite.png";
 
-    public static final String MAXIMAZE_BLACK = "assets/maximazeblack.png";
-    public static final String MAXIMAZE_WHITE = "assets/maximazewhite.png";
+    public static final String MAXIMIZE_BLACK = "assets/maximazeblack.png";
+    public static final String MAXIMIZE_WHITE = "assets/maximazewhite.png";
 }
