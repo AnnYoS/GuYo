@@ -3,9 +3,10 @@ package gui.screen.mouselistener;
 import gui.screen.Screen;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class ScreenDragger implements MouseMotionListener {
+public class ScreenDragger implements MouseMotionListener, MouseListener {
 
     private int oldDragX;
     private int oldDragY;
@@ -39,4 +40,29 @@ public class ScreenDragger implements MouseMotionListener {
     }
 
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        oldDragX = 0;
+        oldDragY = 0;
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

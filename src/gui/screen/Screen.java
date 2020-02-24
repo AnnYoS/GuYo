@@ -53,10 +53,12 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     @Override
     public void setDarkMode() {
-        for(Panel p : containers){
-            p.setDarkMode();
+        if(!dark) {
+            for (Panel p : containers) {
+                p.setDarkMode();
+            }
+            dark = true;
         }
-        dark = true;
     }
 
     /**
@@ -64,10 +66,12 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     @Override
     public void setLightMode() {
-        for(Panel p : containers){
-            p.setLightMode();
+        if(dark) {
+            for (Panel p : containers) {
+                p.setLightMode();
+            }
+            dark = false;
         }
-        dark = false;
     }
 
     /**

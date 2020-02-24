@@ -52,9 +52,9 @@ public class DefaultScreen extends Screen {
         }
 
         DefaultButton exit, maximize, reduce;
-        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, true, "assets/crossblack.png", "assets/crosswhite.png");
-        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, true, "assets/maximazeblack.png", "assets/maximazewhite.png");
-        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, true, "assets/reduceblack.png", "assets/reducewhite.png");
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 45, 0, dark, havetitlebar, "assets/crossblack.png", "assets/crosswhite.png");
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 90, 0, dark, havetitlebar, "assets/maximazeblack.png", "assets/maximazewhite.png");
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - 135, 0, dark, havetitlebar, "assets/reduceblack.png", "assets/reducewhite.png");
         initWindowButton(exit, maximize, reduce, main, titlebar);
 
 
@@ -62,18 +62,19 @@ public class DefaultScreen extends Screen {
         maximize.changeColorWhenMouseOn(DEFAULT_DARK_GREY, DEFAULT_LIGHT_GREY);
         reduce.changeColorWhenMouseOn(DEFAULT_DARK_GREY, DEFAULT_LIGHT_GREY);
 
+        ScreenDragger drag = new ScreenDragger(this);
         if(withtitlebar) {
-
             titlebar.addButtons(exit, maximize, reduce);
-
+            titlebar.addMouseMotionListener(drag);
+            titlebar.addMouseListener(drag);
             setLayout(new BorderLayout());
             add(titlebar);
         } else {
             main.addButtons(exit, maximize, reduce);
+            main.addMouseMotionListener(drag);
+            main.addMouseListener(drag);
         }
         add(main);
-
-        containers.get(1).addMouseMotionListener(new ScreenDragger(this));
 
         /*important*/
         setUndecorated(true);
