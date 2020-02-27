@@ -1,7 +1,7 @@
 package gui.screen;
 
 import gui.GuYoComponent;
-import gui.button.DefaultButton;
+import gui.button.defaultbutton.DefaultButton;
 import gui.panel.container.MainContainer;
 import gui.panel.Panel;
 import gui.panel.bar.DefaultTitlebar;
@@ -37,6 +37,9 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         position.setX((int) ((dimension.getWidth() - this.getWidth()) / 2));
         position.setY((int) ((dimension.getHeight() - this.getHeight()) / 2));
         setLocation(position.getX(), position.getY());
+
+        /*important to create our own titlebar and border*/
+        setUndecorated(true);
     }
 
     /**

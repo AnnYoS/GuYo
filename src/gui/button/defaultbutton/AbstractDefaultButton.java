@@ -1,26 +1,21 @@
-package gui.button;
+package gui.button.defaultbutton;
 
-import gui.GuYoComponent;
+import gui.button.Button;
 import gui.view.Images;
 
 import javax.swing.*;
 
-import java.awt.*;
-
 import static util.Constant.*;
 import static util.Constant.DEFAULT_WHITE;
 
-public abstract class AbstractButton extends JButton implements GuYoComponent {
+public abstract class AbstractDefaultButton extends Button {
 
-    protected boolean dark;
     protected boolean withtitlebar;
     protected Images images;
 
-    public AbstractButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, String darkimage, String lightimage){
-        super();
-        this.dark = dark;
+    public AbstractDefaultButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, String darkimage, String lightimage){
+        super(width, height, x, y, dark);
         this.withtitlebar = withtitlebar;
-        setBounds(x, y, width, height);
         images = new Images(darkimage, lightimage);
         setDefaultColor();
     }
@@ -54,6 +49,7 @@ public abstract class AbstractButton extends JButton implements GuYoComponent {
     /**
      * set the default color of the button
      */
+    @Override
     public void setDefaultColor(){
         if(dark){
             if(withtitlebar) {
@@ -70,14 +66,6 @@ public abstract class AbstractButton extends JButton implements GuYoComponent {
             }
             setImageOnButton(images.getDarkimage());
         }
-    }
-
-    /**
-     * set a new color of the background of the button
-     * @param c the new color of the background
-     */
-    public void setColor(Color c) {
-        setBackground(c);
     }
 
     /**

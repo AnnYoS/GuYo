@@ -40,7 +40,6 @@ public class ScreenDragger implements MouseMotionListener, MouseListener {
         } else {
             if(posClickX >= screen.getPosition().getX() && posClickY >= screen.getPosition().getY() && posClickX <=
                     screen.getPosition().getX() + screen.getWidth() && posClickY <= screen.getPosition().getY() + DEFAULT_TITLEBAR_HEIGHT){
-                System.out.println("je peux bouger le screen");
                 if (oldDragX != 0 && oldDragY != 0) {
                     int moveX = oldDragX - e.getXOnScreen();
                     int moveY = oldDragY - e.getYOnScreen();

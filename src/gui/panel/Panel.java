@@ -1,7 +1,7 @@
 package gui.panel;
 
 import gui.GuYoComponent;
-import gui.button.AbstractButton;
+import gui.button.defaultbutton.AbstractDefaultButton;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class Panel extends JPanel implements GuYoComponent {
 
     protected boolean dark;
-    protected List<AbstractButton> buttons;
+    protected List<AbstractDefaultButton> buttons;
 
     public Panel(int width, int height, boolean dark) {
         super();
@@ -22,7 +22,7 @@ public abstract class Panel extends JPanel implements GuYoComponent {
     /**
      * @return the list of buttons in the panel
      */
-    public List<AbstractButton> getButtons() {
+    public List<AbstractDefaultButton> getButtons() {
         return buttons;
     }
 
@@ -30,7 +30,7 @@ public abstract class Panel extends JPanel implements GuYoComponent {
      * add the button to the panel
      * @param b the button to add
      */
-    public void addButton(AbstractButton b){
+    public void addButton(AbstractDefaultButton b){
         add(b);
         buttons.add(b);
     }
@@ -39,8 +39,8 @@ public abstract class Panel extends JPanel implements GuYoComponent {
      * add multiple buttons to the panel
      * @param buttons to add
      */
-    public void addButtons(AbstractButton... buttons){
-        for(AbstractButton b : buttons){
+    public void addButtons(AbstractDefaultButton... buttons){
+        for(AbstractDefaultButton b : buttons){
             add(b);
             this.buttons.add(b);
         }

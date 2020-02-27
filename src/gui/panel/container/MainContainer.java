@@ -1,6 +1,6 @@
 package gui.panel.container;
 
-import gui.button.AbstractButton;
+import gui.button.defaultbutton.AbstractDefaultButton;
 import gui.panel.Panel;
 
 import static util.Constant.*;
@@ -28,7 +28,7 @@ public abstract class MainContainer extends Panel {
     @Override
     public void setDarkMode() {
         setBackground(DEFAULT_BLACK);
-        for(AbstractButton b : buttons){
+        for(AbstractDefaultButton b : buttons){
             b.setDarkMode();
         }
     }
@@ -39,7 +39,7 @@ public abstract class MainContainer extends Panel {
     @Override
     public void setLightMode() {
         setBackground(DEFAULT_WHITE);
-        for(AbstractButton b : buttons){
+        for(AbstractDefaultButton b : buttons){
             b.setLightMode();
         }
     }

@@ -1,6 +1,6 @@
 package gui.screen;
 
-import gui.button.DefaultButton;
+import gui.button.defaultbutton.DefaultButton;
 import gui.panel.bar.DefaultTitlebar;
 import gui.panel.container.DefaultPanel;
 import gui.screen.mouselistener.ScreenDragger;
@@ -74,10 +74,6 @@ public class DefaultScreen extends Screen {
             main.addMouseListener(drag);
         }
         add(main);
-
-        /*important*/
-        setUndecorated(true);
-
     }
 
     /**

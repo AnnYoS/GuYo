@@ -1,16 +1,31 @@
 package gui.button;
 
+import gui.GuYoComponent;
+
+import javax.swing.*;
 import java.awt.*;
 
-public class DefaultButton extends AbstractButton {
+public abstract class Button extends JButton implements GuYoComponent {
 
-    public DefaultButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, String darkimage, String lightimage){
-        super(width, height, x, y, dark, withtitlebar,darkimage, lightimage);
-        setBorderPainted(false);
+    protected boolean dark;
+
+    public Button(int width, int height, int x, int y, boolean dark){
+        this.dark = dark;
+        setBounds(x, y, width, height);
     }
 
     /**
-     * set the color change for the button when the mouse is on the button
+     * set a new color of the background of the button
+     * @param c the new color of the background
+     */
+    public void setColor(Color c) {
+        setBackground(c);
+    }
+
+    public abstract void setDefaultColor();
+
+    /**
+     * set the color change for the button when the mouse is on the button using their onw setDefaultColor()
      * @param colordark color to set
      * @param colorlight color to set
      */

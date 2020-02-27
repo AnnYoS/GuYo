@@ -1,6 +1,6 @@
 package gui.panel.bar;
 
-import gui.button.AbstractButton;
+import gui.button.defaultbutton.AbstractDefaultButton;
 import gui.panel.Panel;
 
 import static util.Constant.*;
@@ -22,7 +22,7 @@ public abstract class Titlebar extends Panel {
     @Override
     public void setDarkMode() {
         setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
-        for (AbstractButton b : buttons) {
+        for (AbstractDefaultButton b : buttons) {
             b.setDarkMode();
         }
     }
@@ -33,7 +33,7 @@ public abstract class Titlebar extends Panel {
     @Override
     public void setLightMode() {
         setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
-        for(AbstractButton b : buttons){
+        for(AbstractDefaultButton b : buttons){
             b.setLightMode();
         }
     }
