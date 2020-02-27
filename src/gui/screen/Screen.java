@@ -86,6 +86,10 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         return position;
     }
 
+    public boolean isHavetitlebar() {
+        return havetitlebar;
+    }
+
     /**
      * initialize the 3 basicals buttons in the top right corner of the screen
      * @param exit button
