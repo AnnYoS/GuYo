@@ -42,7 +42,7 @@ public abstract class Titlebar extends Panel {
      * resize the titlebar
      * @param width the new width of the titlebar
      */
-    public void resizeTitlebar(int width){
+    public void resizePanel(int width, int height){
         setSize(width, DEFAULT_TITLEBAR_HEIGHT);
     }
 }

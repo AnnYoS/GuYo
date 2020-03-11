@@ -17,6 +17,6 @@ public class Main {
     }
 
     public static void display(){
-        Screen screen = new DefaultScreen(true, true);
+        Screen screen = new DefaultScreen(false, true);
     }
 }

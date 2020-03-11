@@ -6,6 +6,12 @@ public class Constant {
 
     public static final int DEFAULT_SCREEN_WIDTH = 640;
     public static final int DEFAULT_SCREEN_HEIGHT = 480;
+
+    public static final int TOP_RIGHT_CORNER = 1;
+    public static final int BOTTOM_RIGHT_CORNER = 2;
+    public static final int BOTTOM_LEFT_CORNER = 3;
+    public static final int TOP_LEFT_CORNER = 4;
+
     public static int DEFAULT_TITLEBAR_HEIGHT = 30;
     public static int BORDER = 5;
 

@@ -2,15 +2,12 @@ package gui.screen;
 
 import gui.GuYoComponent;
 import gui.button.defaultbutton.DefaultButton;
-import gui.panel.container.MainContainer;
 import gui.panel.Panel;
-import gui.panel.bar.DefaultTitlebar;
 import util.Position2I;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import static util.Constant.*;
 
@@ -20,10 +17,12 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     protected boolean dark;
     protected boolean havetitlebar;
     protected boolean fullscreen;
-    protected List<Panel> containers;
+    protected ArrayList<Panel> containers;
 
     public Screen(int width, int height, boolean dark, boolean withtitlebar){
         super();
+
+        //initialize variables
         containers = new ArrayList<>();
         position = new Position2I();
         this.dark = dark;
@@ -76,31 +75,109 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     }
 
     /**
-     * @return containers on the screen
+     * @return the main panel on the current screen
      */
-    public List<Panel> getContainers() {
-        return containers;
+    public Panel getMainpanel(){
+       return containers.get(0);
+    }
+
+    /**
+     * @return the titlebar if exist only
+     */
+    public Panel getTitlebar(){
+        if(havetitlebar){
+            return containers.get(1);
+        }
+        return null;
     }
 
     /**
      * @return the position of the screen
      */
-    public Position2I getPosition() {
+    public Position2I getPosition(){
         return position;
     }
 
+    /**
+     * @return if the screen have titlebar
+     */
     public boolean isHavetitlebar() {
         return havetitlebar;
     }
 
     /**
-     * initialize the 3 basicals buttons in the top right corner of the screen
-     * @param exit button
-     * @param maximize button
-     * @param reduce button
+     * initialize exit button at top right corner if we want it
+     * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initWindowButton(DefaultButton exit, DefaultButton maximize, DefaultButton reduce, MainContainer main, DefaultTitlebar titlebar){
+    protected void initExitButton(int width){
+        DefaultButton exit;
+        int nbbuttons = 0;
+        if(havetitlebar){
+            nbbuttons = getTitlebar().getButtons().size();
+        } else {
+            nbbuttons = getMainpanel().getButtons().size();
+        }
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/crossblack.png", "assets/crosswhite.png");
+        exit.changeColorWhenMouseOn(DEFAULT_RED, DEFAULT_RED);
         exit.addActionListener(e -> System.exit(0));
+        if(havetitlebar){
+            getTitlebar().addButton(exit);
+        } else {
+            getMainpanel().addButton(exit);
+        }
+    }
+
+    /**
+     * initialize reduce button at top right corner if we want it
+     * @param width the width of the screen to know the position in the top right corner
+     */
+    protected void initReduceButton(int width){
+        DefaultButton reduce;
+        int nbbuttons = 0;
+        if(havetitlebar){
+            nbbuttons = getTitlebar().getButtons().size();
+        } else {
+            nbbuttons = getMainpanel().getButtons().size();
+        }
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
+        reduce.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON);
+
+        reduce.addActionListener(e -> {
+            setExtendedState(JFrame.HIDE_ON_CLOSE);
+
+            if (fullscreen) {
+                GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
+                int x = maximumWindowBound.width;
+                int y = maximumWindowBound.height;
+                setSize(new Dimension(x, y));
+            }
+
+            revalidate();
+            repaint();
+        });
+
+        if(havetitlebar){
+            getTitlebar().addButton(reduce);
+        } else {
+            getMainpanel().addButton(reduce);
+        }
+    }
+
+    /**
+     * initialize maximize button at top right corner if we want it
+     * @param width the width of the screen to know the position in the top right corner
+     */
+    protected void initMaximizeButton(int width){
+        DefaultButton maximize;
+        int nbbuttons = 0;
+        if(havetitlebar){
+            nbbuttons = getTitlebar().getButtons().size();
+        } else {
+            nbbuttons = getMainpanel().getButtons().size();
+        }
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
+        maximize.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON);
 
         maximize.addActionListener(e -> {
             int x = 0, y = 0;
@@ -121,31 +198,15 @@ public abstract class Screen extends JFrame implements GuYoComponent {
                 setLocation(position.getX(), position.getY());
             }
 
-            main.resizePanel(x, y);
+            getMainpanel().resizePanel(x, y);
             if (havetitlebar) {
-                titlebar.resizeTitlebar(x);
-                for (Component c : titlebar.getComponents()) {
-                    if (c.equals(exit)) {
-                        c.setLocation(x - 45, 0);
-                    }
-                    if (c.equals(maximize)) {
-                        c.setLocation(titlebar.getWidth() - 90, 0);
-                    }
-                    if (c.equals(reduce)) {
-                        c.setLocation(titlebar.getWidth() - 135, 0);
-                    }
+                getTitlebar().resizePanel(x, y);
+                for(int i = 0; i < getTitlebar().getComponentCount(); i++){
+                    getTitlebar().getButtonAt(i).setLocation(x - (i + 1)*(int)getTitlebar().getButtonAt(i).getSize().getWidth(), 0);
                 }
             } else {
-                for (Component c : main.getComponents()) {
-                    if (c.equals(exit)) {
-                        c.setLocation(x - 45, 0);
-                    }
-                    if (c.equals(maximize)) {
-                        c.setLocation(main.getWidth() - 90, 0);
-                    }
-                    if (c.equals(reduce)) {
-                        c.setLocation(main.getWidth() - 135, 0);
-                    }
+                for(int i = 0; i < getMainpanel().getComponentCount(); i++){
+                    getMainpanel().getButtonAt(i).setLocation(x - (i + 1)*(int)getMainpanel().getButtonAt(i).getSize().getWidth(), 0);
                 }
             }
 
@@ -153,19 +214,25 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             repaint();
         });
 
-        reduce.addActionListener(e -> {
-            setExtendedState(JFrame.HIDE_ON_CLOSE);
+        if(havetitlebar){
+            getTitlebar().addButton(maximize);
+        } else {
+            getMainpanel().addButton(maximize);
+        }
+    }
 
-            if (fullscreen) {
-                GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                Rectangle maximumWindowBound = environment.getMaximumWindowBounds();
-                int x = maximumWindowBound.width;
-                int y = maximumWindowBound.height;
-                setSize(new Dimension(x, y));
-            }
-
-            revalidate();
-            repaint();
-        });
+    /**
+     * set the name of the application
+     * @param name the new name
+     */
+    public void setAppName(String name, Position2I pos, int width){
+        JLabel apptitle = new JLabel(name);
+        apptitle.setBounds(pos.getX(), pos.getY(), width,DEFAULT_TITLEBAR_HEIGHT);
+        if(dark){ apptitle.setForeground(DEFAULT_WHITE);}
+        if(havetitlebar){
+            getTitlebar().add(apptitle);
+        } else {
+            getMainpanel().add(apptitle);
+        }
     }
 }
