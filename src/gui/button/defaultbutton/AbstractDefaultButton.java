@@ -5,6 +5,8 @@ import gui.view.Images;
 
 import javax.swing.*;
 
+import java.awt.*;
+
 import static util.Constant.*;
 import static util.Constant.DEFAULT_WHITE;
 
@@ -31,6 +33,11 @@ public abstract class AbstractDefaultButton extends Button {
             setBackground(DEFAULT_BLACK);
         }
         setImageOnButton(images.getLightimage());
+        perso = false;
+        dark = true;
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -44,6 +51,29 @@ public abstract class AbstractDefaultButton extends Button {
             setBackground(DEFAULT_WHITE);
         }
         setImageOnButton(images.getDarkimage());
+        perso = false;
+        dark = false;
+
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * set the personnal theme
+     */
+    @Override
+    public void setPersonnalTheme() {
+        if(withtitlebar) {
+            setBackground(PERSO_TITLEBAR_COLOR);
+        } else {
+            setBackground(PERSO_THEME_MAIN);
+        }
+        setImageOnButton(images.getLightimage());
+        dark = false;
+        perso = true;
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -65,6 +95,13 @@ public abstract class AbstractDefaultButton extends Button {
                 setBackground(DEFAULT_WHITE);
             }
             setImageOnButton(images.getDarkimage());
+        }
+        if(perso){
+            if(withtitlebar) {
+                setBackground(PERSO_TITLEBAR_COLOR);
+            } else {
+                setBackground(PERSO_THEME_MAIN);
+            }
         }
     }
 

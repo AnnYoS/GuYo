@@ -8,9 +8,11 @@ import java.awt.*;
 public abstract class Button extends JButton implements GuYoComponent {
 
     protected boolean dark;
+    protected boolean perso;
 
     public Button(int width, int height, int x, int y, boolean dark){
         this.dark = dark;
+        perso = false;
         setBounds(x, y, width, height);
     }
 
@@ -29,13 +31,16 @@ public abstract class Button extends JButton implements GuYoComponent {
      * @param colordark color to set
      * @param colorlight color to set
      */
-    public void changeColorWhenMouseOn(Color colordark, Color colorlight){
+    public void changeColorWhenMouseOn(Color colordark, Color colorlight, Color colorperso){
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 if(dark){
                     setColor(colordark);
                 } else {
                     setColor(colorlight);
+                }
+                if(perso){
+                    setColor(colorperso);
                 }
             }
 
@@ -44,4 +49,6 @@ public abstract class Button extends JButton implements GuYoComponent {
             }
         });
     }
+
+    public abstract void setPersonnalTheme();
 }

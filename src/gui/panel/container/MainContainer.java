@@ -3,6 +3,8 @@ package gui.panel.container;
 import gui.button.defaultbutton.AbstractDefaultButton;
 import gui.panel.Panel;
 
+import java.awt.*;
+
 import static util.Constant.*;
 
 public abstract class MainContainer extends Panel {
@@ -31,6 +33,8 @@ public abstract class MainContainer extends Panel {
         for(AbstractDefaultButton b : buttons){
             b.setDarkMode();
         }
+        perso = false;
+        dark = true;
     }
 
     /**
@@ -42,6 +46,21 @@ public abstract class MainContainer extends Panel {
         for(AbstractDefaultButton b : buttons){
             b.setLightMode();
         }
+        perso = false;
+        dark = false;
+    }
+
+    /**
+     * set the personnal theme to the container
+     */
+    @Override
+    public void setPersonnalTheme() {
+        setBackground(PERSO_THEME_MAIN);
+        for (AbstractDefaultButton b : buttons) {
+            b.setPersonnalTheme();
+        }
+        dark = false;
+        perso = true;
     }
 
     /**

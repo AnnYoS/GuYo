@@ -18,6 +18,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
 
     protected Position2I position;
     protected boolean dark;
+    protected boolean perso;
     protected boolean havetitlebar;
     protected boolean fullscreen;
     protected ArrayList<Panel> containers;
@@ -29,6 +30,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         containers = new ArrayList<>();
         position = new Position2I();
         this.dark = dark;
+        this.perso = false;
         this.havetitlebar = withtitlebar;
         this.fullscreen = false;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +41,9 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         position.setX((int) ((dimension.getWidth() - this.getWidth()) / 2));
         position.setY((int) ((dimension.getHeight() - this.getHeight()) / 2));
         setLocation(position.getX(), position.getY());
+
+        //initialize the containers
+        initContainers(width, height);
 
         /*important to create our own titlebar and border*/
         setUndecorated(true);
@@ -56,12 +61,12 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     @Override
     public void setDarkMode() {
-        if(!dark) {
-            for (Panel p : containers) {
-                p.setDarkMode();
-            }
-            dark = true;
+        for (Panel p : containers) {
+            p.setDarkMode();
         }
+        perso = false;
+        dark = true;
+
     }
 
     /**
@@ -69,12 +74,28 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     @Override
     public void setLightMode() {
-        if(dark) {
-            for (Panel p : containers) {
-                p.setLightMode();
-            }
-            dark = false;
+        for (Panel p : containers) {
+            p.setLightMode();
         }
+        perso = false;
+        dark = false;
+    }
+
+    /**
+     * set a personnal theme to the screen
+     * @param main new color of main
+     * @param titlebar new color of titlebar
+     * @param mouseonbutton new color of the button when the mouse is on it
+     */
+    public void setPersonnalTheme(Color main, Color titlebar, Color mouseonbutton) {
+        changePersonnalColorMainTheme(main);
+        changePersonnalTitlebarColor(titlebar);
+        changePersonnalColorMouseOn(mouseonbutton);
+        for (Panel p : containers) {
+            p.setPersonnalTheme();
+        }
+        dark = false;
+        perso = true;
     }
 
     /**
@@ -140,7 +161,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             nbbuttons = getMainpanel().getButtons().size();
         }
         exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/crossblack.png", "assets/crosswhite.png");
-        exit.changeColorWhenMouseOn(DEFAULT_RED, DEFAULT_RED);
+        exit.changeColorWhenMouseOn(DEFAULT_RED, DEFAULT_RED, DEFAULT_RED);
         exit.addActionListener(e -> System.exit(0));
         if(havetitlebar){
             getTitlebar().addButton(exit);
@@ -162,7 +183,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             nbbuttons = getMainpanel().getButtons().size();
         }
         reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
-        reduce.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON);
+        reduce.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON, PERSO_COLOR_MOUSE_ON);
 
         reduce.addActionListener(e -> {
             setExtendedState(JFrame.HIDE_ON_CLOSE);
@@ -199,7 +220,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             nbbuttons = getMainpanel().getButtons().size();
         }
         maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
-        maximize.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON);
+        maximize.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON, PERSO_COLOR_MOUSE_ON);
 
         maximize.addActionListener(e -> {
             int x = 0, y = 0;
@@ -244,21 +265,6 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     }
 
     /**
-     * set the name of the application
-     * @param name the new name
-     */
-    public void setAppName(String name, Position2I pos, int width){
-        JLabel apptitle = new JLabel(name);
-        apptitle.setBounds(pos.getX(), pos.getY(), width, DEFAULT_TITLEBAR_HEIGHT);
-        if(dark){ apptitle.setForeground(DEFAULT_WHITE);}
-        if(havetitlebar){
-            getTitlebar().add(apptitle);
-        } else {
-            getMainpanel().add(apptitle);
-        }
-    }
-
-    /**
      * set the dragger for the screen to move it on window
      */
     protected void setScreenDragger(){
@@ -270,6 +276,21 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         } else {
             getMainpanel().addMouseMotionListener(drag);
             getMainpanel().addMouseListener(drag);
+        }
+    }
+
+    /**
+     * set the name of the application
+     * @param name the new name
+     */
+    public void setAppName(String name, Position2I pos, int width){
+        JLabel apptitle = new JLabel(name);
+        apptitle.setBounds(pos.getX(), pos.getY(), width, DEFAULT_TITLEBAR_HEIGHT);
+        if(dark){ apptitle.setForeground(DEFAULT_WHITE);}
+        if(havetitlebar){
+            getTitlebar().add(apptitle);
+        } else {
+            getMainpanel().add(apptitle);
         }
     }
 }

@@ -25,6 +25,10 @@ public class Constant {
     public static Color DEFAULT_COLOR_WHITE_MOUSE_ON = new Color(190, 190, 190);
     public static Color DEFAULT_COLOR_DARK_MOUSE_ON = new Color(70, 70, 70);
 
+    public static Color PERSO_THEME_MAIN = new Color(0,0,0);
+    public static Color PERSO_TITLEBAR_COLOR = new Color(0,0,0);
+    public static Color PERSO_COLOR_MOUSE_ON = new Color(0,0,0);
+
     /**
      * change the titlebar height of all windows
      * @param newheight the new height
@@ -35,7 +39,7 @@ public class Constant {
 
     /**
      * change the default dark color
-     * @param c the new color
+     * @param c new color
      */
     public static void changeDefaultBlack(Color c){
         DEFAULT_BLACK = c;
@@ -43,7 +47,7 @@ public class Constant {
 
     /**
      * change the dafault light color
-     * @param c the new color
+     * @param c new color
      */
     public static void changeDefaultWhite(Color c){
         DEFAULT_WHITE = c;
@@ -51,7 +55,7 @@ public class Constant {
 
     /**
      * change the default titlebar dark color
-     * @param c the new color
+     * @param c new color
      */
     public static void changeDefaultTitlebarBlack(Color c){
         DEFAULT_TITLEBAR_BLACK_COLOR = c;
@@ -59,7 +63,7 @@ public class Constant {
 
     /**
      * change the default titlebar light color
-     * @param c the new color
+     * @param c new color
      */
     public static void changeDefaultTitlebarWhite(Color c){
         DEFAULT_TITLEBAR_WHITE_COLOR = c;
@@ -67,7 +71,7 @@ public class Constant {
 
     /**
      * change the default red color (for close button)
-     * @param c the new color
+     * @param c new color
      */
     public static void changeDefaultRedColor(Color c){
         DEFAULT_RED = c;
@@ -75,7 +79,7 @@ public class Constant {
 
     /**
      * change the default color for button when the mouse is on the button in light theme
-     * @param c the new color
+     * @param c new color
      */
     public static void changeDefaultColorWhiteWhenMouseIsOnButton(Color c){
         DEFAULT_COLOR_WHITE_MOUSE_ON = c;
@@ -83,9 +87,27 @@ public class Constant {
 
     /**
      * change the default color for button when the mouse is on the button in dark theme
-     * @param c the new color
+     * @param c new color
      */
     public static void changeDefaultColorDarkWhenMouseIsOnButton(Color c){
         DEFAULT_COLOR_DARK_MOUSE_ON = c;
     }
+
+    /**
+     * change the main color of the personnal theme
+     * @param c new color
+     */
+    public static void changePersonnalColorMainTheme(Color c) { PERSO_THEME_MAIN = c; }
+
+    /**
+     * change the color of the new titlebar personnal color
+     * @param c new color
+     */
+    public static void changePersonnalTitlebarColor(Color c) { PERSO_TITLEBAR_COLOR = c; }
+
+    /**
+     * change the color of the button when the mouse is on
+     * @param c new color
+     */
+    public static void changePersonnalColorMouseOn(Color c) { PERSO_COLOR_MOUSE_ON = c; }
 }

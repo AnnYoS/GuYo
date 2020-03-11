@@ -1,10 +1,5 @@
 package gui.screen;
 
-import gui.button.defaultbutton.DefaultButton;
-import gui.panel.bar.DefaultTitlebar;
-import gui.panel.container.DefaultPanel;
-import gui.screen.mouselistener.ScreenDragger;
-
 import java.awt.*;
 
 import static util.Constant.*;
@@ -36,7 +31,6 @@ public class DefaultScreen extends Screen {
      * @param height of the window
      */
     public void initWindow(int width, int height){
-        initContainers(width, height);
 
         initExitButton(width);
         initMaximizeButton(width);

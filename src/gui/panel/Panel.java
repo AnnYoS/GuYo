@@ -4,17 +4,20 @@ import gui.GuYoComponent;
 import gui.button.defaultbutton.AbstractDefaultButton;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Panel extends JPanel implements GuYoComponent {
 
     protected boolean dark;
+    protected boolean perso;
     protected List<AbstractDefaultButton> buttons;
 
     public Panel(int width, int height, boolean dark) {
         super();
         this.dark = dark;
+        this.perso = false;
         buttons = new ArrayList<>();
         setSize(width, height);
     }
@@ -61,4 +64,9 @@ public abstract class Panel extends JPanel implements GuYoComponent {
      * @param height new height
      */
     public abstract void resizePanel(int width, int height);
+
+    /**
+     * change the theme into personnal
+     */
+    public abstract void setPersonnalTheme();
 }
