@@ -26,22 +26,15 @@ public abstract class Button extends JButton implements GuYoComponent {
 
     public abstract void setDefaultColor();
 
+    public abstract void setColorMouseOn();
+
     /**
      * set the color change for the button when the mouse is on the button using their onw setDefaultColor()
-     * @param colordark color to set
-     * @param colorlight color to set
      */
-    public void changeColorWhenMouseOn(Color colordark, Color colorlight, Color colorperso){
+    public void changeColorWhenMouseOn(){
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                if(dark){
-                    setColor(colordark);
-                } else {
-                    setColor(colorlight);
-                }
-                if(perso){
-                    setColor(colorperso);
-                }
+                setColorMouseOn();
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {

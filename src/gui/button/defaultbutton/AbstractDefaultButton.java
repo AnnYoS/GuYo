@@ -35,9 +35,6 @@ public abstract class AbstractDefaultButton extends Button {
         setImageOnButton(images.getLightimage());
         perso = false;
         dark = true;
-
-        revalidate();
-        repaint();
     }
 
     /**
@@ -53,9 +50,6 @@ public abstract class AbstractDefaultButton extends Button {
         setImageOnButton(images.getDarkimage());
         perso = false;
         dark = false;
-
-        revalidate();
-        repaint();
     }
 
     /**
@@ -68,12 +62,9 @@ public abstract class AbstractDefaultButton extends Button {
         } else {
             setBackground(PERSO_THEME_MAIN);
         }
-        setImageOnButton(images.getLightimage());
+        setImageOnButton(images.getDarkimage());
         dark = false;
         perso = true;
-
-        revalidate();
-        repaint();
     }
 
     /**
@@ -102,6 +93,22 @@ public abstract class AbstractDefaultButton extends Button {
             } else {
                 setBackground(PERSO_THEME_MAIN);
             }
+            setImageOnButton(images.getDarkimage());
+        }
+    }
+
+    /**
+     * change the color when the mouse is on
+     */
+    @Override
+    public void setColorMouseOn() {
+        if(dark){
+            setBackground(DEFAULT_COLOR_DARK_MOUSE_ON);
+        } else {
+            setBackground(DEFAULT_COLOR_WHITE_MOUSE_ON);
+        }
+        if(perso){
+            setBackground(PERSO_COLOR_MOUSE_ON);
         }
     }
 

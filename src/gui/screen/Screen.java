@@ -161,7 +161,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             nbbuttons = getMainpanel().getButtons().size();
         }
         exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/crossblack.png", "assets/crosswhite.png");
-        exit.changeColorWhenMouseOn(DEFAULT_RED, DEFAULT_RED, DEFAULT_RED);
+        exit.changeColorWhenMouseOn();
         exit.addActionListener(e -> System.exit(0));
         if(havetitlebar){
             getTitlebar().addButton(exit);
@@ -183,7 +183,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             nbbuttons = getMainpanel().getButtons().size();
         }
         reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
-        reduce.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON, PERSO_COLOR_MOUSE_ON);
+        reduce.changeColorWhenMouseOn();
 
         reduce.addActionListener(e -> {
             setExtendedState(JFrame.HIDE_ON_CLOSE);
@@ -220,7 +220,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             nbbuttons = getMainpanel().getButtons().size();
         }
         maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
-        maximize.changeColorWhenMouseOn(DEFAULT_COLOR_DARK_MOUSE_ON, DEFAULT_COLOR_WHITE_MOUSE_ON, PERSO_COLOR_MOUSE_ON);
+        maximize.changeColorWhenMouseOn();
 
         maximize.addActionListener(e -> {
             int x = 0, y = 0;
