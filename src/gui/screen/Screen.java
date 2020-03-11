@@ -3,6 +3,9 @@ package gui.screen;
 import gui.GuYoComponent;
 import gui.button.defaultbutton.DefaultButton;
 import gui.panel.Panel;
+import gui.panel.bar.DefaultTitlebar;
+import gui.panel.container.DefaultPanel;
+import gui.screen.mouselistener.ScreenDragger;
 import util.Position2I;
 
 import javax.swing.*;
@@ -62,7 +65,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     }
 
     /**
-     * set the theme int light
+     * set the theme in light
      */
     @Override
     public void setLightMode() {
@@ -82,7 +85,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     }
 
     /**
-     * @return the titlebar if exist only
+     * @return the titlebar if exist one, else null
      */
     public Panel getTitlebar(){
         if(havetitlebar){
@@ -103,6 +106,25 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     public boolean isHavetitlebar() {
         return havetitlebar;
+    }
+
+    /**
+     * initialize the containers on the screen
+     * @param width dimension
+     * @param height dimension
+     */
+    protected void initContainers(int width, int height){
+        DefaultPanel main = new DefaultPanel(width, height, dark, havetitlebar);
+        main.setLayout(null);
+        containers.add(main);
+
+        //create titlebar if we have one
+        DefaultTitlebar titlebar = null;
+        if(havetitlebar) {
+            titlebar = new DefaultTitlebar(width, dark);
+            titlebar.setLayout(null);
+            containers.add(titlebar);
+        }
     }
 
     /**
@@ -201,11 +223,11 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             getMainpanel().resizePanel(x, y);
             if (havetitlebar) {
                 getTitlebar().resizePanel(x, y);
-                for(int i = 0; i < getTitlebar().getComponentCount(); i++){
+                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
                     getTitlebar().getButtonAt(i).setLocation(x - (i + 1)*(int)getTitlebar().getButtonAt(i).getSize().getWidth(), 0);
                 }
             } else {
-                for(int i = 0; i < getMainpanel().getComponentCount(); i++){
+                for(int i = 0; i < getMainpanel().getButtons().size(); i++){
                     getMainpanel().getButtonAt(i).setLocation(x - (i + 1)*(int)getMainpanel().getButtonAt(i).getSize().getWidth(), 0);
                 }
             }
@@ -227,12 +249,27 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     public void setAppName(String name, Position2I pos, int width){
         JLabel apptitle = new JLabel(name);
-        apptitle.setBounds(pos.getX(), pos.getY(), width,DEFAULT_TITLEBAR_HEIGHT);
+        apptitle.setBounds(pos.getX(), pos.getY(), width, DEFAULT_TITLEBAR_HEIGHT);
         if(dark){ apptitle.setForeground(DEFAULT_WHITE);}
         if(havetitlebar){
             getTitlebar().add(apptitle);
         } else {
             getMainpanel().add(apptitle);
+        }
+    }
+
+    /**
+     * set the dragger for the screen to move it on window
+     */
+    protected void setScreenDragger(){
+        ScreenDragger drag = new ScreenDragger(this);
+        if(havetitlebar) {
+            assert getTitlebar() != null : "Titlebar null";
+            getTitlebar().addMouseMotionListener(drag);
+            getTitlebar().addMouseListener(drag);
+        } else {
+            getMainpanel().addMouseMotionListener(drag);
+            getMainpanel().addMouseListener(drag);
         }
     }
 }

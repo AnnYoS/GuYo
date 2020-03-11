@@ -36,35 +36,19 @@ public class DefaultScreen extends Screen {
      * @param height of the window
      */
     public void initWindow(int width, int height){
-        //create concrete panel without layout
-        DefaultPanel main = new DefaultPanel(width, height, dark, havetitlebar);
-        main.setLayout(null);
-        containers.add(main);
-
-        //create titlebar if we have one
-        DefaultTitlebar titlebar = null;
-        if(havetitlebar) {
-            titlebar = new DefaultTitlebar(width, dark);
-            titlebar.setLayout(null);
-            containers.add(titlebar);
-        }
+        initContainers(width, height);
 
         initExitButton(width);
         initMaximizeButton(width);
         initReduceButton(width);
 
-        //create drag to move the window
-        ScreenDragger drag = new ScreenDragger(this);
+        setScreenDragger();
+
         if(havetitlebar) {
-            assert titlebar != null;
-            titlebar.addMouseMotionListener(drag);
-            titlebar.addMouseListener(drag);
+            assert getTitlebar() != null;
             setLayout(new BorderLayout());
-            add(titlebar);
-        } else {
-            main.addMouseMotionListener(drag);
-            main.addMouseListener(drag);
+            add(getTitlebar());
         }
-        add(main);
+        add(getMainpanel());
     }
 }
