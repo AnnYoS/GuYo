@@ -10,7 +10,6 @@ import util.Position2I;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 import static util.Constant.*;
 
@@ -19,19 +18,19 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     protected Position2I position;
     protected boolean dark;
     protected boolean perso;
-    protected boolean havetitlebar;
+    protected boolean showtitlebar;
     protected boolean fullscreen;
-    protected ArrayList<Panel> containers;
+    protected Panel[] containers;
 
-    public Screen(int width, int height, boolean dark, boolean withtitlebar){
+    public Screen(int width, int height, boolean dark, boolean showtitlebar, int barposition){
         super();
 
         //initialize variables
-        containers = new ArrayList<>();
+        containers = new Panel[2];
         position = new Position2I();
         this.dark = dark;
         this.perso = false;
-        this.havetitlebar = withtitlebar;
+        this.showtitlebar = showtitlebar;
         this.fullscreen = false;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -43,7 +42,10 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         setLocation(position.getX(), position.getY());
 
         //initialize the containers
-        initContainers(width, height);
+        if(barposition == LEFT || barposition == RIGHT){
+            changeTitlebarSize(40);
+        }
+        initContainers(width, height, barposition);
 
         /*important to create our own titlebar and border*/
         setUndecorated(true);
@@ -102,17 +104,14 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * @return the main panel on the current screen
      */
     public Panel getMainpanel(){
-       return containers.get(0);
+       return containers[0];
     }
 
     /**
-     * @return the titlebar if exist one, else null
+     * @return the titlebar of the screen
      */
     public Panel getTitlebar(){
-        if(havetitlebar){
-            return containers.get(1);
-        }
-        return null;
+        return containers[1];
     }
 
     /**
@@ -125,8 +124,8 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     /**
      * @return if the screen have titlebar
      */
-    public boolean isHavetitlebar() {
-        return havetitlebar;
+    public boolean isShowTitlebar() {
+        return showtitlebar;
     }
 
     /**
@@ -134,56 +133,40 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * @param width dimension
      * @param height dimension
      */
-    protected void initContainers(int width, int height){
-        DefaultPanel main = new DefaultPanel(width, height, dark, havetitlebar);
+    protected void initContainers(int width, int height, int barposition){
+        DefaultPanel main = new DefaultPanel(width, height, dark, showtitlebar, barposition);
         main.setLayout(null);
-        containers.add(main);
+        containers[0] = main;
 
-        //create titlebar if we have one
-        DefaultTitlebar titlebar = null;
-        if(havetitlebar) {
-            titlebar = new DefaultTitlebar(width, dark);
-            titlebar.setLayout(null);
-            containers.add(titlebar);
-        }
+        DefaultTitlebar titlebar = new DefaultTitlebar(width, height, dark, barposition);
+        titlebar.setLayout(null);
+        containers[1] = titlebar;
     }
 
     /**
      * initialize exit button at top right corner if we want it
      * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initExitButton(int width){
+    protected void initExitButton(int width, int height){
         DefaultButton exit;
-        int nbbuttons = 0;
-        if(havetitlebar){
-            nbbuttons = getTitlebar().getButtons().size();
-        } else {
-            nbbuttons = getMainpanel().getButtons().size();
-        }
-        exit = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/crossblack.png", "assets/crosswhite.png");
-        exit.changeColorWhenMouseOn();
+        int nbbuttons = getTitlebar().getButtons().size();
+
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, width - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/crossblack.png", "assets/crosswhite.png");
+        exit.changeColorWhenMouseOn(true);
         exit.addActionListener(e -> System.exit(0));
-        if(havetitlebar){
-            getTitlebar().addButton(exit);
-        } else {
-            getMainpanel().addButton(exit);
-        }
+        getTitlebar().addButton(exit);
     }
 
     /**
      * initialize reduce button at top right corner if we want it
      * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initReduceButton(int width){
+    protected void initReduceButton(int width, int height){
         DefaultButton reduce;
-        int nbbuttons = 0;
-        if(havetitlebar){
-            nbbuttons = getTitlebar().getButtons().size();
-        } else {
-            nbbuttons = getMainpanel().getButtons().size();
-        }
-        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
-        reduce.changeColorWhenMouseOn();
+        int nbbuttons = getTitlebar().getButtons().size();
+
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, width - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
+        reduce.changeColorWhenMouseOn(false);
 
         reduce.addActionListener(e -> {
             setExtendedState(JFrame.HIDE_ON_CLOSE);
@@ -199,28 +182,19 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             revalidate();
             repaint();
         });
-
-        if(havetitlebar){
-            getTitlebar().addButton(reduce);
-        } else {
-            getMainpanel().addButton(reduce);
-        }
+        getTitlebar().addButton(reduce);
     }
 
     /**
      * initialize maximize button at top right corner if we want it
      * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initMaximizeButton(int width){
+    protected void initMaximizeButton(int width, int height){
         DefaultButton maximize;
-        int nbbuttons = 0;
-        if(havetitlebar){
-            nbbuttons = getTitlebar().getButtons().size();
-        } else {
-            nbbuttons = getMainpanel().getButtons().size();
-        }
-        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_HEIGHT, width - (nbbuttons + 1)*45, 0, this.dark, havetitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
-        maximize.changeColorWhenMouseOn();
+        int nbbuttons = getTitlebar().getButtons().size();
+
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, width - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
+        maximize.changeColorWhenMouseOn(false);
 
         maximize.addActionListener(e -> {
             int x = 0, y = 0;
@@ -242,26 +216,16 @@ public abstract class Screen extends JFrame implements GuYoComponent {
             }
 
             getMainpanel().resizePanel(x, y);
-            if (havetitlebar) {
-                getTitlebar().resizePanel(x, y);
-                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
-                    getTitlebar().getButtonAt(i).setLocation(x - (i + 1)*(int)getTitlebar().getButtonAt(i).getSize().getWidth(), 0);
-                }
-            } else {
-                for(int i = 0; i < getMainpanel().getButtons().size(); i++){
-                    getMainpanel().getButtonAt(i).setLocation(x - (i + 1)*(int)getMainpanel().getButtonAt(i).getSize().getWidth(), 0);
-                }
+            getTitlebar().resizePanel(x, y);
+            for(int i = 0; i < getTitlebar().getButtons().size(); i++){
+                getTitlebar().getButtonAt(i).setLocation(x - (i + 1)*(int)getTitlebar().getButtonAt(i).getSize().getWidth(), 0);
+
             }
 
             revalidate();
             repaint();
         });
-
-        if(havetitlebar){
-            getTitlebar().addButton(maximize);
-        } else {
-            getMainpanel().addButton(maximize);
-        }
+        getTitlebar().addButton(maximize);
     }
 
     /**
@@ -269,14 +233,8 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     protected void setScreenDragger(){
         ScreenDragger drag = new ScreenDragger(this);
-        if(havetitlebar) {
-            assert getTitlebar() != null : "Titlebar null";
-            getTitlebar().addMouseMotionListener(drag);
-            getTitlebar().addMouseListener(drag);
-        } else {
-            getMainpanel().addMouseMotionListener(drag);
-            getMainpanel().addMouseListener(drag);
-        }
+        getTitlebar().addMouseMotionListener(drag);
+        getTitlebar().addMouseListener(drag);
     }
 
     /**
@@ -285,12 +243,9 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      */
     public void setAppName(String name, Position2I pos, int width){
         JLabel apptitle = new JLabel(name);
-        apptitle.setBounds(pos.getX(), pos.getY(), width, DEFAULT_TITLEBAR_HEIGHT);
-        if(dark){ apptitle.setForeground(DEFAULT_WHITE);}
-        if(havetitlebar){
-            getTitlebar().add(apptitle);
-        } else {
-            getMainpanel().add(apptitle);
-        }
+        apptitle.setBounds(pos.getX(), pos.getY(), width, DEFAULT_TITLEBAR_SIZE);
+        if(dark){ apptitle.setForeground(WHITE_THEME.getMainColor());}
+        getTitlebar().add(apptitle);
+
     }
 }

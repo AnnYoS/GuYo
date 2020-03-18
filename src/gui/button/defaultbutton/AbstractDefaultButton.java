@@ -5,10 +5,7 @@ import gui.view.Images;
 
 import javax.swing.*;
 
-import java.awt.*;
-
 import static util.Constant.*;
-import static util.Constant.DEFAULT_WHITE;
 
 public abstract class AbstractDefaultButton extends Button {
 
@@ -28,9 +25,9 @@ public abstract class AbstractDefaultButton extends Button {
     @Override
     public void setDarkMode() {
         if(withtitlebar) {
-            setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
+            setBackground(DARK_THEME.getSecondaryColor());
         } else {
-            setBackground(DEFAULT_BLACK);
+            setBackground(DARK_THEME.getMainColor());
         }
         setImageOnButton(images.getLightimage());
         perso = false;
@@ -43,9 +40,9 @@ public abstract class AbstractDefaultButton extends Button {
     @Override
     public void setLightMode() {
         if(withtitlebar) {
-            setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
+            setBackground(WHITE_THEME.getSecondaryColor());
         } else {
-            setBackground(DEFAULT_WHITE);
+            setBackground(WHITE_THEME.getMainColor());
         }
         setImageOnButton(images.getDarkimage());
         perso = false;
@@ -74,16 +71,16 @@ public abstract class AbstractDefaultButton extends Button {
     public void setDefaultColor(){
         if(dark){
             if(withtitlebar) {
-                setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
+                setBackground(DARK_THEME.getSecondaryColor());
             } else {
-                setBackground(DEFAULT_BLACK);
+                setBackground(DARK_THEME.getMainColor());
             }
             setImageOnButton(images.getLightimage());
         } else {
             if(withtitlebar) {
-                setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
+                setBackground(WHITE_THEME.getSecondaryColor());
             } else {
-                setBackground(DEFAULT_WHITE);
+                setBackground(WHITE_THEME.getMainColor());
             }
             setImageOnButton(images.getDarkimage());
         }
@@ -103,9 +100,9 @@ public abstract class AbstractDefaultButton extends Button {
     @Override
     public void setColorMouseOn() {
         if(dark){
-            setBackground(DEFAULT_COLOR_DARK_MOUSE_ON);
+            setBackground(DARK_THEME.getInteractColor());
         } else {
-            setBackground(DEFAULT_COLOR_WHITE_MOUSE_ON);
+            setBackground(WHITE_THEME.getInteractColor());
         }
         if(perso){
             setBackground(PERSO_COLOR_MOUSE_ON);

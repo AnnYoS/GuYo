@@ -3,18 +3,28 @@ package gui.panel.bar;
 import gui.button.defaultbutton.AbstractDefaultButton;
 import gui.panel.Panel;
 
-import java.awt.*;
-
 import static util.Constant.*;
 
 public abstract class Titlebar extends Panel {
 
-    public Titlebar(int width, int height, boolean dark) {
+    protected int position;
+
+    public Titlebar(int width, int height, boolean dark, int barposition) {
         super(width, height, dark);
+        position = barposition;
+        if(barposition == TOP){
+            setBounds(0,0, width, DEFAULT_TITLEBAR_SIZE);
+        } else if (barposition == LEFT){
+            setBounds(0,0, DEFAULT_TITLEBAR_SIZE, height);
+        } else if (barposition == RIGHT){
+            setBounds(width - DEFAULT_TITLEBAR_SIZE, 0, DEFAULT_TITLEBAR_SIZE, height);
+        } else if (barposition == BOTTOM){
+            setBounds(0, height - DEFAULT_TITLEBAR_SIZE, width, DEFAULT_TITLEBAR_SIZE);
+        }
         if(dark){
-            setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
+            setBackground(DARK_THEME.getSecondaryColor());
         } else {
-            setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
+            setBackground(WHITE_THEME.getSecondaryColor());
         }
     }
 
@@ -23,7 +33,7 @@ public abstract class Titlebar extends Panel {
      */
     @Override
     public void setDarkMode() {
-        setBackground(DEFAULT_TITLEBAR_BLACK_COLOR);
+        setBackground(DARK_THEME.getSecondaryColor());
         for (AbstractDefaultButton b : buttons) {
             b.setDarkMode();
         }
@@ -36,7 +46,7 @@ public abstract class Titlebar extends Panel {
      */
     @Override
     public void setLightMode() {
-        setBackground(DEFAULT_TITLEBAR_WHITE_COLOR);
+        setBackground(DARK_THEME.getSecondaryColor());
         for(AbstractDefaultButton b : buttons){
             b.setLightMode();
         }
@@ -62,6 +72,6 @@ public abstract class Titlebar extends Panel {
      * @param width the new width of the titlebar
      */
     public void resizePanel(int width, int height){
-        setSize(width, DEFAULT_TITLEBAR_HEIGHT);
+        setSize(width, DEFAULT_TITLEBAR_SIZE);
     }
 }

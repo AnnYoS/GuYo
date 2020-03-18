@@ -1,10 +1,8 @@
 package gui.panel.bar;
 
-import static util.Constant.*;
-
 public class DefaultTitlebar extends Titlebar {
 
-    public DefaultTitlebar(int width, boolean dark){
-        super(width, DEFAULT_TITLEBAR_HEIGHT, dark);
+    public DefaultTitlebar(int width, int height,boolean dark, int barposition){
+        super(width, height, dark, barposition);
     }
 }

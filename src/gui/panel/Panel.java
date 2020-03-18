@@ -4,7 +4,6 @@ import gui.GuYoComponent;
 import gui.button.defaultbutton.AbstractDefaultButton;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public abstract class Panel extends JPanel implements GuYoComponent {
         this.dark = dark;
         this.perso = false;
         buttons = new ArrayList<>();
-        setSize(width, height);
     }
 
     /**

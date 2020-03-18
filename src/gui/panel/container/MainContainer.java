@@ -3,24 +3,32 @@ package gui.panel.container;
 import gui.button.defaultbutton.AbstractDefaultButton;
 import gui.panel.Panel;
 
-import java.awt.*;
-
 import static util.Constant.*;
 
 public abstract class MainContainer extends Panel {
 
     protected boolean havetitlebar;
 
-    public MainContainer(int width, int height, boolean dark, boolean withtitlebar) {
+    public MainContainer(int width, int height, boolean dark, boolean withtitlebar, int barposition) {
         super(width, height, dark);
         this.havetitlebar = withtitlebar;
         if(dark){
-            setBackground(DEFAULT_BLACK);
+            setBackground(DARK_THEME.getMainColor());
         } else {
-            setBackground(DEFAULT_WHITE);
+            setBackground(WHITE_THEME.getMainColor());
         }
         if(withtitlebar) {
-            setSize(width, height - DEFAULT_TITLEBAR_HEIGHT);
+            if(barposition == TOP){
+                setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
+            } else if (barposition == LEFT){
+                setBounds(DEFAULT_TITLEBAR_SIZE,0, width - DEFAULT_TITLEBAR_SIZE, height);
+            } else if (barposition == RIGHT){
+                setBounds(0, 0, width - DEFAULT_TITLEBAR_SIZE, height);
+            } else {
+                setBounds(0,0, width, height - DEFAULT_TITLEBAR_SIZE);
+            }
+        } else {
+            setSize(width, height);
         }
     }
 
@@ -29,7 +37,7 @@ public abstract class MainContainer extends Panel {
      */
     @Override
     public void setDarkMode() {
-        setBackground(DEFAULT_BLACK);
+        setBackground(DARK_THEME.getMainColor());
         for(AbstractDefaultButton b : buttons){
             b.setDarkMode();
         }
@@ -42,7 +50,7 @@ public abstract class MainContainer extends Panel {
      */
     @Override
     public void setLightMode() {
-        setBackground(DEFAULT_WHITE);
+        setBackground(DARK_THEME.getMainColor());
         for(AbstractDefaultButton b : buttons){
             b.setLightMode();
         }
@@ -70,7 +78,7 @@ public abstract class MainContainer extends Panel {
      */
     public void resizePanel(int width, int height){
         if(havetitlebar){
-            setSize(width, height - DEFAULT_TITLEBAR_HEIGHT);
+            setSize(width, height - DEFAULT_TITLEBAR_SIZE);
         } else {
             setSize(width, height);
         }
