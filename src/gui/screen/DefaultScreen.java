@@ -1,7 +1,5 @@
 package gui.screen;
 
-import gui.button.defaultbutton.DefaultButton;
-
 import java.awt.*;
 
 import static util.Constant.*;
@@ -10,7 +8,7 @@ import static util.Constant.*;
 public class DefaultScreen extends Screen {
 
     public DefaultScreen(int width, int height, boolean dark, boolean withtitlebar) {
-        super(width, height, dark, withtitlebar, TOP);
+        super(width, height, dark, withtitlebar);
 
         initWindow(width, height);
 
@@ -18,23 +16,11 @@ public class DefaultScreen extends Screen {
     }
 
     public DefaultScreen(boolean dark, boolean withtitlebar){
-        super(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, dark, withtitlebar, TOP);
+        super(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, dark, withtitlebar);
 
         initWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
 
         setVisible(true);
-    }
-
-    public DefaultScreen(boolean dark, int titlebarposition){
-        super(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, dark, true, titlebarposition);
-
-        initWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-
-        setVisible(true);
-    }
-
-    public DefaultScreen(int width, int height, boolean dark, int titlebarposition){
-        super(width, height, dark, true,titlebarposition);
     }
 
     /**

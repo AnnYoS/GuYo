@@ -18,6 +18,6 @@ public class Main {
     }
 
     public static void display(){
-        Screen screen = new DefaultScreen(false, TOP);
+        Screen screen = new DefaultScreen(false, true);
     }
 }

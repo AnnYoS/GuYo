@@ -9,7 +9,7 @@ public abstract class MainContainer extends Panel {
 
     protected boolean havetitlebar;
 
-    public MainContainer(int width, int height, boolean dark, boolean withtitlebar, int barposition) {
+    public MainContainer(int width, int height, boolean dark, boolean withtitlebar) {
         super(width, height, dark);
         this.havetitlebar = withtitlebar;
         if(dark){
@@ -18,15 +18,7 @@ public abstract class MainContainer extends Panel {
             setBackground(WHITE_THEME.getMainColor());
         }
         if(withtitlebar) {
-            if(barposition == TOP){
-                setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
-            } else if (barposition == LEFT){
-                setBounds(DEFAULT_TITLEBAR_SIZE,0, width - DEFAULT_TITLEBAR_SIZE, height);
-            } else if (barposition == RIGHT){
-                setBounds(0, 0, width - DEFAULT_TITLEBAR_SIZE, height);
-            } else {
-                setBounds(0,0, width, height - DEFAULT_TITLEBAR_SIZE);
-            }
+            setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
         } else {
             setSize(width, height);
         }

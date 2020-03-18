@@ -22,7 +22,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     protected boolean fullscreen;
     protected Panel[] containers;
 
-    public Screen(int width, int height, boolean dark, boolean showtitlebar, int barposition){
+    public Screen(int width, int height, boolean dark, boolean showtitlebar){
         super();
 
         //initialize variables
@@ -41,11 +41,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         position.setY((int) ((dimension.getHeight() - this.getHeight()) / 2));
         setLocation(position.getX(), position.getY());
 
-        //initialize the containers
-        if(barposition == LEFT || barposition == RIGHT){
-            changeTitlebarSize(40);
-        }
-        initContainers(width, height, barposition);
+        initContainers(width, height);
 
         /*important to create our own titlebar and border*/
         setUndecorated(true);
@@ -133,12 +129,12 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * @param width dimension
      * @param height dimension
      */
-    protected void initContainers(int width, int height, int barposition){
-        DefaultPanel main = new DefaultPanel(width, height, dark, showtitlebar, barposition);
+    protected void initContainers(int width, int height){
+        DefaultPanel main = new DefaultPanel(width, height, dark, showtitlebar);
         main.setLayout(null);
         containers[0] = main;
 
-        DefaultTitlebar titlebar = new DefaultTitlebar(width, height, dark, barposition);
+        DefaultTitlebar titlebar = new DefaultTitlebar(width, height, dark, showtitlebar);
         titlebar.setLayout(null);
         containers[1] = titlebar;
     }

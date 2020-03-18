@@ -7,24 +7,26 @@ import static util.Constant.*;
 
 public abstract class Titlebar extends Panel {
 
-    protected int position;
+    private boolean isShow;
 
-    public Titlebar(int width, int height, boolean dark, int barposition) {
+    public Titlebar(int width, int height, boolean dark, boolean show) {
         super(width, height, dark);
-        position = barposition;
-        if(barposition == TOP){
-            setBounds(0,0, width, DEFAULT_TITLEBAR_SIZE);
-        } else if (barposition == LEFT){
-            setBounds(0,0, DEFAULT_TITLEBAR_SIZE, height);
-        } else if (barposition == RIGHT){
-            setBounds(width - DEFAULT_TITLEBAR_SIZE, 0, DEFAULT_TITLEBAR_SIZE, height);
-        } else if (barposition == BOTTOM){
-            setBounds(0, height - DEFAULT_TITLEBAR_SIZE, width, DEFAULT_TITLEBAR_SIZE);
-        }
+
+        setBounds(0,0, width, DEFAULT_TITLEBAR_SIZE);
+        isShow = show;
+
         if(dark){
-            setBackground(DARK_THEME.getSecondaryColor());
+            if(isShow){
+                setBackground(DARK_THEME.getSecondaryColor());
+            } else {
+                setBackground(DARK_THEME.getMainColor());
+            }
         } else {
-            setBackground(WHITE_THEME.getSecondaryColor());
+            if(isShow){
+                setBackground(WHITE_THEME.getSecondaryColor());
+            } else {
+                setBackground(WHITE_THEME.getMainColor());
+            }
         }
     }
 
@@ -73,5 +75,12 @@ public abstract class Titlebar extends Panel {
      */
     public void resizePanel(int width, int height){
         setSize(width, DEFAULT_TITLEBAR_SIZE);
+    }
+
+    /**
+     * @return is the titlebar is visible
+     */
+    public boolean isShow(){
+        return isShow;
     }
 }
