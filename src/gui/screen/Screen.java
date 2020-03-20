@@ -26,12 +26,9 @@ public class Screen extends JFrame implements GuYoComponent {
         super();
         initVariables(width, height, isDark, isShowTitlebar);
         initContainers();
+        initBasicalButtons();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*important to create our own titlebar and border*/
         setUndecorated(true);
-
-        initWindow();
         setVisible(true);
     }
 
@@ -39,12 +36,9 @@ public class Screen extends JFrame implements GuYoComponent {
         super();
         initVariables(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, isDark, isShowTitlebar);
         initContainers();
+        initBasicalButtons();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*important to create our own titlebar and border*/
         setUndecorated(true);
-
-        initWindow();
         setVisible(true);
 
     }
@@ -53,12 +47,9 @@ public class Screen extends JFrame implements GuYoComponent {
         super();
         initVariables(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, false, true);
         initContainers();
+        initBasicalButtons();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*important to create our own titlebar and border*/
         setUndecorated(true);
-
-        initWindow();
         setVisible(true);
     }
 
@@ -89,38 +80,32 @@ public class Screen extends JFrame implements GuYoComponent {
      * initialize the containers on the screen
      */
     private void initContainers(){
+        setLayout(new BorderLayout());
         DefaultPanel main = new DefaultPanel(super.getWidth(), super.getHeight(), dark, showtitlebar);
         main.setLayout(null);
         containers[0] = main;
+        add(getMainPanel());
 
         DefaultTitlebar titlebar = new DefaultTitlebar(super.getWidth(), super.getHeight(), dark, showtitlebar);
         titlebar.setLayout(null);
         containers[1] = titlebar;
-    }
-
-    private void initBasicalButton(){
-        initExitButton();
+        add(getTitlebar());
+        setScreenDragger();
     }
 
     /**
-     * initialize the window
+     * initialize basical buttons on screen
      */
-    protected void initWindow(){
+    private void initBasicalButtons(){
         initExitButton();
         initMaximizeButton();
         initReduceButton();
-
-        setScreenDragger();
-
-        setLayout(new BorderLayout());
-        add(getTitlebar());
-        add(getMainPanel());
     }
 
     /**
      * initialize exit button at top right corner if we want it
      */
-    protected void initExitButton(){
+    private void initExitButton(){
         DefaultButton exit;
         int nbbuttons = getTitlebar().getButtons().size();
 
@@ -133,7 +118,7 @@ public class Screen extends JFrame implements GuYoComponent {
     /**
      * initialize reduce button at top right corner if we want it
      */
-    protected void initReduceButton(){
+    private void initReduceButton(){
         DefaultButton reduce;
         int nbbuttons = getTitlebar().getButtons().size();
 
@@ -160,7 +145,7 @@ public class Screen extends JFrame implements GuYoComponent {
     /**
      * initialize maximize button at top right corner if we want it
      */
-    protected void initMaximizeButton(){
+    private void initMaximizeButton(){
         DefaultButton maximize;
         int nbbuttons = getTitlebar().getButtons().size();
 
@@ -202,7 +187,7 @@ public class Screen extends JFrame implements GuYoComponent {
     /**
      * set the dragger for the screen to move it on window
      */
-    protected void setScreenDragger(){
+    private void setScreenDragger(){
         ScreenDragger drag = new ScreenDragger(this);
         getTitlebar().addMouseMotionListener(drag);
         getTitlebar().addMouseListener(drag);
