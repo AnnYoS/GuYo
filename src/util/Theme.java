@@ -49,4 +49,22 @@ public class Theme {
     public Color getInteractColor() {
         return interactcolor;
     }
+
+    /**
+     * set new color for the main color of theme
+     * @param main color
+     */
+    public void setMaincolor(Color main) { maincolor = main; }
+
+    /**
+     * set new color for the secondary  of theme
+     * @param secondary color
+     */
+    public void setSecondarycolor(Color secondary) { secondarycolor = secondary; }
+
+    /**
+     * set new interaction color of the theme
+     * @param interaction color
+     */
+    public void setInteractcolor(Color interaction) { interactcolor = interaction; }
 }

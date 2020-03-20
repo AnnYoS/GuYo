@@ -15,8 +15,9 @@ public class Constant {
     public static int DEFAULT_TITLEBAR_SIZE = 30;
     public static int BORDER = 5;
 
-    public static final Theme DARK_THEME = new Theme(new Color(40, 40, 40), new Color(55, 55, 55), new Color(70, 70, 70));
-    public static final Theme WHITE_THEME = new Theme(new Color(230, 230, 230), new Color(210, 210, 210), new Color(190, 190, 190));
+    public static Theme DARK_THEME = new Theme(new Color(40, 40, 40), new Color(55, 55, 55), new Color(70, 70, 70));
+    public static Theme LIGHT_THEME = new Theme(new Color(230, 230, 230), new Color(210, 210, 210), new Color(190, 190, 190));
+    public static Theme PERSO_THEME = new Theme(new Color(0,0,0), new Color(0,0,0), new Color(0,0,0));
 
     public static Color DEFAULT_RED = new Color(220, 0, 0);
 
@@ -41,20 +42,38 @@ public class Constant {
     }
 
     /**
-     * change the main color of the personnal theme
-     * @param c new color
+     * set a new dark theme
+     * @param main color
+     * @param secondary color
+     * @param interaction color
      */
-    public static void changePersonnalColorMainTheme(Color c) { PERSO_THEME_MAIN = c; }
+    public static void changeDarkTheme(Color main, Color secondary, Color interaction){
+        DARK_THEME.setMaincolor(main);
+        DARK_THEME.setSecondarycolor(secondary);
+        DARK_THEME.setInteractcolor(interaction);
+    }
 
     /**
-     * change the color of the new titlebar personnal color
-     * @param c new color
+     * set a new light theme
+     * @param main color
+     * @param secondary color
+     * @param interaction color
      */
-    public static void changePersonnalTitlebarColor(Color c) { PERSO_TITLEBAR_COLOR = c; }
+    public static void changeLightTheme(Color main, Color secondary, Color interaction){
+        LIGHT_THEME.setMaincolor(main);
+        LIGHT_THEME.setSecondarycolor(secondary);
+        LIGHT_THEME.setInteractcolor(interaction);
+    }
 
     /**
-     * change the color of the button when the mouse is on
-     * @param c new color
+     * set a new perso theme
+     * @param main color
+     * @param secondary color
+     * @param interaction color
      */
-    public static void changePersonnalColorMouseOn(Color c) { PERSO_COLOR_MOUSE_ON = c; }
+    public static void changePersoTheme(Color main, Color secondary, Color interaction){
+        PERSO_THEME.setMaincolor(main);
+        PERSO_THEME.setSecondarycolor(secondary);
+        PERSO_THEME.setInteractcolor(interaction);
+    }
 }

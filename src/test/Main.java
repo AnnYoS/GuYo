@@ -1,10 +1,8 @@
 package test;
 
-import gui.screen.DefaultScreen;
 import gui.screen.Screen;
 
 import javax.swing.*;
-import static util.Constant.*;
 
 public class Main {
 
@@ -18,6 +16,6 @@ public class Main {
     }
 
     public static void display(){
-        Screen screen = new DefaultScreen(false, true);
+        Screen screen = new Screen(1000, 600,false, true);
     }
 }

@@ -13,14 +13,14 @@ import java.awt.*;
 
 import static util.Constant.*;
 
-public abstract class Screen extends JFrame implements GuYoComponent {
+public class Screen extends JFrame implements GuYoComponent {
 
-    protected Position2I position;
-    protected boolean dark;
-    protected boolean perso;
-    protected boolean showtitlebar;
-    protected boolean fullscreen;
-    protected Panel[] containers;
+    private Position2I position;
+    private boolean dark;
+    private boolean perso;
+    private boolean showtitlebar;
+    private boolean fullscreen;
+    private Panel[] containers;
 
     public Screen(int width, int height, boolean dark, boolean showtitlebar){
         super();
@@ -32,7 +32,6 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         this.perso = false;
         this.showtitlebar = showtitlebar;
         this.fullscreen = false;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //setting size and position of the screen
         setSize(width, height);
@@ -44,84 +43,27 @@ public abstract class Screen extends JFrame implements GuYoComponent {
         initContainers(width, height);
 
         /*important to create our own titlebar and border*/
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        initWindow(width);
+        setVisible(true);
     }
 
     /**
      * initialize the window
      * @param width of the window
-     * @param height of the window
      */
-    protected abstract void initWindow(int width, int height);
+    protected void initWindow(int width){
+        initExitButton(width);
+        initMaximizeButton(width);
+        initReduceButton(width);
 
-    /**
-     * set the theme in dark
-     */
-    @Override
-    public void setDarkMode() {
-        for (Panel p : containers) {
-            p.setDarkMode();
-        }
-        perso = false;
-        dark = true;
+        setScreenDragger();
 
-    }
-
-    /**
-     * set the theme in light
-     */
-    @Override
-    public void setLightMode() {
-        for (Panel p : containers) {
-            p.setLightMode();
-        }
-        perso = false;
-        dark = false;
-    }
-
-    /**
-     * set a personnal theme to the screen
-     * @param main new color of main
-     * @param titlebar new color of titlebar
-     * @param mouseonbutton new color of the button when the mouse is on it
-     */
-    public void setPersonnalTheme(Color main, Color titlebar, Color mouseonbutton) {
-        changePersonnalColorMainTheme(main);
-        changePersonnalTitlebarColor(titlebar);
-        changePersonnalColorMouseOn(mouseonbutton);
-        for (Panel p : containers) {
-            p.setPersonnalTheme();
-        }
-        dark = false;
-        perso = true;
-    }
-
-    /**
-     * @return the main panel on the current screen
-     */
-    public Panel getMainpanel(){
-       return containers[0];
-    }
-
-    /**
-     * @return the titlebar of the screen
-     */
-    public Panel getTitlebar(){
-        return containers[1];
-    }
-
-    /**
-     * @return the position of the screen
-     */
-    public Position2I getPosition(){
-        return position;
-    }
-
-    /**
-     * @return if the screen have titlebar
-     */
-    public boolean isShowTitlebar() {
-        return showtitlebar;
+        setLayout(new BorderLayout());
+        add(getTitlebar());
+        add(getMainpanel());
     }
 
     /**
@@ -143,7 +85,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * initialize exit button at top right corner if we want it
      * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initExitButton(int width, int height){
+    protected void initExitButton(int width){
         DefaultButton exit;
         int nbbuttons = getTitlebar().getButtons().size();
 
@@ -157,7 +99,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * initialize reduce button at top right corner if we want it
      * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initReduceButton(int width, int height){
+    protected void initReduceButton(int width){
         DefaultButton reduce;
         int nbbuttons = getTitlebar().getButtons().size();
 
@@ -185,7 +127,7 @@ public abstract class Screen extends JFrame implements GuYoComponent {
      * initialize maximize button at top right corner if we want it
      * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initMaximizeButton(int width, int height){
+    protected void initMaximizeButton(int width){
         DefaultButton maximize;
         int nbbuttons = getTitlebar().getButtons().size();
 
@@ -240,8 +182,76 @@ public abstract class Screen extends JFrame implements GuYoComponent {
     public void setAppName(String name, Position2I pos, int width){
         JLabel apptitle = new JLabel(name);
         apptitle.setBounds(pos.getX(), pos.getY(), width, DEFAULT_TITLEBAR_SIZE);
-        if(dark){ apptitle.setForeground(WHITE_THEME.getMainColor());}
+        if(dark){ apptitle.setForeground(LIGHT_THEME.getMainColor());}
         getTitlebar().add(apptitle);
 
+    }
+
+    /**
+     * set the theme in dark
+     */
+    @Override
+    public void setDarkMode() {
+        for (Panel p : containers) {
+            p.setDarkMode();
+        }
+        perso = false;
+        dark = true;
+
+    }
+
+    /**
+     * set the theme in light
+     */
+    @Override
+    public void setLightMode() {
+        for (Panel p : containers) {
+            p.setLightMode();
+        }
+        perso = false;
+        dark = false;
+    }
+
+    /**
+     * set a personnal theme to the screen
+     * @param main color
+     * @param secondary color
+     * @param interaction color
+     */
+    public void setPersonnalTheme(Color main, Color secondary, Color interaction) {
+        changePersoTheme(main, secondary, interaction);
+        for (Panel p : containers) {
+            p.setPersonnalTheme();
+        }
+        dark = false;
+        perso = true;
+    }
+
+    /**
+     * @return the main panel on the current screen
+     */
+    public Panel getMainpanel(){
+        return containers[0];
+    }
+
+    /**
+     * @return the titlebar of the screen
+     */
+    public Panel getTitlebar(){
+        return containers[1];
+    }
+
+    /**
+     * @return the position of the screen
+     */
+    public Position2I getPosition(){
+        return position;
+    }
+
+    /**
+     * @return if the screen have titlebar
+     */
+    public boolean isShowTitlebar() {
+        return showtitlebar;
     }
 }
