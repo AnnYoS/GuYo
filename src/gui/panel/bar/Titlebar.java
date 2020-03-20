@@ -23,9 +23,9 @@ public abstract class Titlebar extends Panel {
             }
         } else {
             if(isShow){
-                setBackground(WHITE_THEME.getSecondaryColor());
+                setBackground(LIGHT_THEME.getSecondaryColor());
             } else {
-                setBackground(WHITE_THEME.getMainColor());
+                setBackground(LIGHT_THEME.getMainColor());
             }
         }
     }

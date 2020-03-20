@@ -40,9 +40,9 @@ public abstract class AbstractDefaultButton extends Button {
     @Override
     public void setLightMode() {
         if(withtitlebar) {
-            setBackground(WHITE_THEME.getSecondaryColor());
+            setBackground(LIGHT_THEME.getSecondaryColor());
         } else {
-            setBackground(WHITE_THEME.getMainColor());
+            setBackground(LIGHT_THEME.getMainColor());
         }
         setImageOnButton(images.getDarkimage());
         perso = false;
@@ -78,9 +78,9 @@ public abstract class AbstractDefaultButton extends Button {
             setImageOnButton(images.getLightimage());
         } else {
             if(withtitlebar) {
-                setBackground(WHITE_THEME.getSecondaryColor());
+                setBackground(LIGHT_THEME.getSecondaryColor());
             } else {
-                setBackground(WHITE_THEME.getMainColor());
+                setBackground(LIGHT_THEME.getMainColor());
             }
             setImageOnButton(images.getDarkimage());
         }
@@ -102,7 +102,7 @@ public abstract class AbstractDefaultButton extends Button {
         if(dark){
             setBackground(DARK_THEME.getInteractColor());
         } else {
-            setBackground(WHITE_THEME.getInteractColor());
+            setBackground(LIGHT_THEME.getInteractColor());
         }
         if(perso){
             setBackground(PERSO_COLOR_MOUSE_ON);

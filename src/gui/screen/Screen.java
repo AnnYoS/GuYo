@@ -22,16 +22,60 @@ public class Screen extends JFrame implements GuYoComponent {
     private boolean fullscreen;
     private Panel[] containers;
 
-    public Screen(int width, int height, boolean dark, boolean showtitlebar){
+    public Screen(int width, int height, boolean isDark, boolean isShowTitlebar){
         super();
+        initVariables(width, height, isDark, isShowTitlebar);
+        initContainers();
 
-        //initialize variables
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*important to create our own titlebar and border*/
+        setUndecorated(true);
+
+        initWindow();
+        setVisible(true);
+    }
+
+    public Screen(boolean isDark, boolean isShowTitlebar){
+        super();
+        initVariables(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, isDark, isShowTitlebar);
+        initContainers();
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*important to create our own titlebar and border*/
+        setUndecorated(true);
+
+        initWindow();
+        setVisible(true);
+
+    }
+
+    public Screen(){
+        super();
+        initVariables(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, false, true);
+        initContainers();
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*important to create our own titlebar and border*/
+        setUndecorated(true);
+
+        initWindow();
+        setVisible(true);
+    }
+
+    /**
+     * initialize screen's variables
+     * @param width of screen
+     * @param height of screen
+     * @param isDark or not
+     * @param isShowTitlebar or not
+     */
+    private void initVariables(int width, int height, boolean isDark, boolean isShowTitlebar){
         containers = new Panel[2];
         position = new Position2I();
-        this.dark = dark;
-        this.perso = false;
-        this.showtitlebar = showtitlebar;
-        this.fullscreen = false;
+        dark = isDark;
+        perso = false;
+        showtitlebar = isShowTitlebar;
+        fullscreen = false;
 
         //setting size and position of the screen
         setSize(width, height);
@@ -39,57 +83,48 @@ public class Screen extends JFrame implements GuYoComponent {
         position.setX((int) ((dimension.getWidth() - this.getWidth()) / 2));
         position.setY((int) ((dimension.getHeight() - this.getHeight()) / 2));
         setLocation(position.getX(), position.getY());
+    }
 
-        initContainers(width, height);
+    /**
+     * initialize the containers on the screen
+     */
+    private void initContainers(){
+        DefaultPanel main = new DefaultPanel(super.getWidth(), super.getHeight(), dark, showtitlebar);
+        main.setLayout(null);
+        containers[0] = main;
 
-        /*important to create our own titlebar and border*/
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        DefaultTitlebar titlebar = new DefaultTitlebar(super.getWidth(), super.getHeight(), dark, showtitlebar);
+        titlebar.setLayout(null);
+        containers[1] = titlebar;
+    }
 
-        initWindow(width);
-        setVisible(true);
+    private void initBasicalButton(){
+        initExitButton();
     }
 
     /**
      * initialize the window
-     * @param width of the window
      */
-    protected void initWindow(int width){
-        initExitButton(width);
-        initMaximizeButton(width);
-        initReduceButton(width);
+    protected void initWindow(){
+        initExitButton();
+        initMaximizeButton();
+        initReduceButton();
 
         setScreenDragger();
 
         setLayout(new BorderLayout());
         add(getTitlebar());
-        add(getMainpanel());
-    }
-
-    /**
-     * initialize the containers on the screen
-     * @param width dimension
-     * @param height dimension
-     */
-    protected void initContainers(int width, int height){
-        DefaultPanel main = new DefaultPanel(width, height, dark, showtitlebar);
-        main.setLayout(null);
-        containers[0] = main;
-
-        DefaultTitlebar titlebar = new DefaultTitlebar(width, height, dark, showtitlebar);
-        titlebar.setLayout(null);
-        containers[1] = titlebar;
+        add(getMainPanel());
     }
 
     /**
      * initialize exit button at top right corner if we want it
-     * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initExitButton(int width){
+    protected void initExitButton(){
         DefaultButton exit;
         int nbbuttons = getTitlebar().getButtons().size();
 
-        exit = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, width - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/crossblack.png", "assets/crosswhite.png");
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth() - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/crossblack.png", "assets/crosswhite.png");
         exit.changeColorWhenMouseOn(true);
         exit.addActionListener(e -> System.exit(0));
         getTitlebar().addButton(exit);
@@ -97,13 +132,12 @@ public class Screen extends JFrame implements GuYoComponent {
 
     /**
      * initialize reduce button at top right corner if we want it
-     * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initReduceButton(int width){
+    protected void initReduceButton(){
         DefaultButton reduce;
         int nbbuttons = getTitlebar().getButtons().size();
 
-        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, width - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth()- (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
         reduce.changeColorWhenMouseOn(false);
 
         reduce.addActionListener(e -> {
@@ -125,13 +159,12 @@ public class Screen extends JFrame implements GuYoComponent {
 
     /**
      * initialize maximize button at top right corner if we want it
-     * @param width the width of the screen to know the position in the top right corner
      */
-    protected void initMaximizeButton(int width){
+    protected void initMaximizeButton(){
         DefaultButton maximize;
         int nbbuttons = getTitlebar().getButtons().size();
 
-        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, width - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth() - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
         maximize.changeColorWhenMouseOn(false);
 
         maximize.addActionListener(e -> {
@@ -153,7 +186,7 @@ public class Screen extends JFrame implements GuYoComponent {
                 setLocation(position.getX(), position.getY());
             }
 
-            getMainpanel().resizePanel(x, y);
+            getMainPanel().resizePanel(x, y);
             getTitlebar().resizePanel(x, y);
             for(int i = 0; i < getTitlebar().getButtons().size(); i++){
                 getTitlebar().getButtonAt(i).setLocation(x - (i + 1)*(int)getTitlebar().getButtonAt(i).getSize().getWidth(), 0);
@@ -230,7 +263,7 @@ public class Screen extends JFrame implements GuYoComponent {
     /**
      * @return the main panel on the current screen
      */
-    public Panel getMainpanel(){
+    public Panel getMainPanel(){
         return containers[0];
     }
 

@@ -15,7 +15,7 @@ public abstract class MainContainer extends Panel {
         if(dark){
             setBackground(DARK_THEME.getMainColor());
         } else {
-            setBackground(WHITE_THEME.getMainColor());
+            setBackground(LIGHT_THEME.getMainColor());
         }
         if(withtitlebar) {
             setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
