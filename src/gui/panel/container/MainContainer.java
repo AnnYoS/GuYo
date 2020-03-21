@@ -69,10 +69,15 @@ public abstract class MainContainer extends Panel {
      * @param height dimension
      */
     public void resizePanel(int width, int height){
-        if(havetitlebar){
-            setSize(width, height - DEFAULT_TITLEBAR_SIZE);
-        } else {
-            setSize(width, height);
-        }
+        setSize(width, height);
+    }
+
+    /**
+     * set new position of the titlebar
+     * @param x position
+     * @param y position
+     */
+    public void setPosition(int x, int y){
+        setBounds(x, y, super.getWidth(), super.getHeight());
     }
 }

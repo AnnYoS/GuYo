@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import static util.Constant.DEFAULT_TITLEBAR_SIZE;
+
 public class ScreenDragger implements MouseMotionListener, MouseListener {
 
     private int oldDragX;
@@ -23,7 +25,7 @@ public class ScreenDragger implements MouseMotionListener, MouseListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         //if(screen.isHavetitlebar()) {
-            if (oldDragX != 0 && oldDragY != 0) {
+            /*if (oldDragX != 0 && oldDragY != 0) {
                 int moveX = oldDragX - e.getXOnScreen();
                 int moveY = oldDragY - e.getYOnScreen();
 
@@ -34,8 +36,8 @@ public class ScreenDragger implements MouseMotionListener, MouseListener {
             }
 
             oldDragX = e.getXOnScreen();
-            oldDragY = e.getYOnScreen();
-        /*} else {
+            oldDragY = e.getYOnScreen();*/
+        //} else {
             if(posClickX >= screen.getPosition().getX() && posClickY >= screen.getPosition().getY() && posClickX <=
                     screen.getPosition().getX() + screen.getWidth() && posClickY <= screen.getPosition().getY() + DEFAULT_TITLEBAR_SIZE){
                 if (oldDragX != 0 && oldDragY != 0) {
@@ -53,7 +55,7 @@ public class ScreenDragger implements MouseMotionListener, MouseListener {
                 posClickX = e.getXOnScreen();
                 posClickY = e.getYOnScreen();
             }
-        }*/
+        /*}*/
     }
 
     @Override

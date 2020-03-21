@@ -64,6 +64,13 @@ public abstract class Panel extends JPanel implements GuYoComponent {
     public abstract void resizePanel(int width, int height);
 
     /**
+     * set a new position for the panel
+     * @param x position
+     * @param y position
+     */
+    public abstract void setPosition(int x, int y);
+
+    /**
      * change the theme into personnal
      */
     public abstract void setPersonnalTheme();

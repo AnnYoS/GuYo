@@ -71,10 +71,20 @@ public abstract class Titlebar extends Panel {
 
     /**
      * resize the titlebar
-     * @param width the new width of the titlebar
+     * @param width dimension
+     * @param height dimension
      */
     public void resizePanel(int width, int height){
-        setSize(width, DEFAULT_TITLEBAR_SIZE);
+        setSize(width, height);
+    }
+
+    /**
+     * set new position of the titlebar
+     * @param x position
+     * @param y position
+     */
+    public void setPosition(int x, int y){
+        setBounds(x, y, super.getWidth(), super.getHeight());
     }
 
     /**

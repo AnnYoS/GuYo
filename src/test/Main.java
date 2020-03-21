@@ -4,6 +4,8 @@ import gui.screen.Screen;
 
 import javax.swing.*;
 
+import static util.Constant.*;
+
 public class Main {
 
     public static void main(String[] args){
@@ -17,5 +19,6 @@ public class Main {
 
     public static void display(){
         Screen screen = new Screen();
+        screen.setTitlebarPosition(RIGHT);
     }
 }

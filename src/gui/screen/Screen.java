@@ -21,6 +21,7 @@ public class Screen extends JFrame implements GuYoComponent {
     private boolean showtitlebar;
     private boolean fullscreen;
     private Panel[] containers;
+    private int titlebarposition;
 
     public Screen(int width, int height, boolean isDark, boolean isShowTitlebar){
         super();
@@ -67,6 +68,7 @@ public class Screen extends JFrame implements GuYoComponent {
         perso = false;
         showtitlebar = isShowTitlebar;
         fullscreen = false;
+        titlebarposition = TOP;
 
         //setting size and position of the screen
         setSize(width, height);
@@ -203,6 +205,41 @@ public class Screen extends JFrame implements GuYoComponent {
         if(dark){ apptitle.setForeground(LIGHT_THEME.getMainColor());}
         getTitlebar().add(apptitle);
 
+    }
+
+    /**
+     * set position of titlebar (top, left, right, bottom)
+     * @param position of titlebar
+     */
+    public void setTitlebarPosition(int position){
+        if(titlebarposition != position){
+            if (position == TOP){
+                changeTitlebarSize(30);
+                getTitlebar().resizePanel(super.getWidth(), DEFAULT_TITLEBAR_SIZE);
+                getTitlebar().setPosition(0,0);
+                getMainPanel().resizePanel(super.getWidth(), super.getHeight() - DEFAULT_TITLEBAR_SIZE);
+                getMainPanel().setPosition(0, DEFAULT_TITLEBAR_SIZE);
+            } else if (position == BOTTOM){
+                changeTitlebarSize(30);
+                getTitlebar().resizePanel(super.getWidth(), DEFAULT_TITLEBAR_SIZE);
+                getTitlebar().setPosition(0,super.getHeight() - DEFAULT_TITLEBAR_SIZE);
+                getMainPanel().resizePanel(super.getWidth(), super.getHeight() - DEFAULT_TITLEBAR_SIZE);
+                getMainPanel().setPosition(0, 0);
+            } else if (position == LEFT){
+                changeTitlebarSize(45);
+                getTitlebar().resizePanel(DEFAULT_TITLEBAR_SIZE, super.getHeight());
+                getTitlebar().setPosition(0,0);
+                getMainPanel().resizePanel(super.getWidth() - DEFAULT_TITLEBAR_SIZE, super.getHeight());
+                getMainPanel().setPosition(DEFAULT_TITLEBAR_SIZE, 0);
+            } else if (position == RIGHT) {
+                changeTitlebarSize(45);
+                getTitlebar().resizePanel(DEFAULT_TITLEBAR_SIZE, super.getHeight());
+                getTitlebar().setPosition(super.getWidth() - DEFAULT_TITLEBAR_SIZE,0);
+                getMainPanel().resizePanel(super.getWidth() - DEFAULT_TITLEBAR_SIZE, super.getHeight());
+                getMainPanel().setPosition(0, 0);
+            }
+            titlebarposition = position;
+        }
     }
 
     /**
