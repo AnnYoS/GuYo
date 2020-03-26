@@ -55,9 +55,9 @@ public abstract class AbstractDefaultButton extends Button {
     @Override
     public void setPersonnalTheme() {
         if(withtitlebar) {
-            setBackground(PERSO_TITLEBAR_COLOR);
+            setBackground(PERSO_THEME.getSecondaryColor());
         } else {
-            setBackground(PERSO_THEME_MAIN);
+            setBackground(PERSO_THEME.getMainColor());
         }
         setImageOnButton(images.getDarkimage());
         dark = false;
@@ -86,9 +86,9 @@ public abstract class AbstractDefaultButton extends Button {
         }
         if(perso){
             if(withtitlebar) {
-                setBackground(PERSO_TITLEBAR_COLOR);
+                setBackground(PERSO_THEME.getSecondaryColor());
             } else {
-                setBackground(PERSO_THEME_MAIN);
+                setBackground(PERSO_THEME.getMainColor());
             }
             setImageOnButton(images.getDarkimage());
         }
@@ -105,7 +105,7 @@ public abstract class AbstractDefaultButton extends Button {
             setBackground(LIGHT_THEME.getInteractColor());
         }
         if(perso){
-            setBackground(PERSO_COLOR_MOUSE_ON);
+            setBackground(PERSO_THEME.getInteractColor());
         }
     }
 
@@ -115,5 +115,23 @@ public abstract class AbstractDefaultButton extends Button {
      */
     public void setImageOnButton(String path){
         setIcon(new ImageIcon(path));
+    }
+
+    /**
+     * set new position for the button
+     * @param x position
+     * @param y position
+     */
+    public void setPosition(int x, int y){
+        setBounds(x, y, super.getWidth(), super.getHeight());
+    }
+
+    /**
+     * set new dimension for the button
+     * @param width dimension
+     * @param height dimension
+     */
+    public void resizeButton(int width, int height){
+        setSize(width, height);
     }
 }

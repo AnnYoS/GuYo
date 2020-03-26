@@ -19,6 +19,7 @@ public class Main {
 
     public static void display(){
         Screen screen = new Screen();
-        screen.setTitlebarPosition(RIGHT);
+        //screen.setTitlebarPosition(LEFT);
+        //screen.setDarkMode();
     }
 }

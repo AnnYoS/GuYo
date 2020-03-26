@@ -61,7 +61,7 @@ public abstract class Titlebar extends Panel {
      */
     @Override
     public void setPersonnalTheme() {
-        setBackground(PERSO_TITLEBAR_COLOR);
+        setBackground(PERSO_THEME.getSecondaryColor());
         for(AbstractDefaultButton b : buttons){
             b.setPersonnalTheme();
         }

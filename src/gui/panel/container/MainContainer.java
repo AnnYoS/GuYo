@@ -55,7 +55,7 @@ public abstract class MainContainer extends Panel {
      */
     @Override
     public void setPersonnalTheme() {
-        setBackground(PERSO_THEME_MAIN);
+        setBackground(PERSO_THEME.getMainColor());
         for (AbstractDefaultButton b : buttons) {
             b.setPersonnalTheme();
         }

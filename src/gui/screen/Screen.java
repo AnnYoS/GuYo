@@ -63,7 +63,11 @@ public class Screen extends JFrame implements GuYoComponent {
      */
     private void initVariables(int width, int height, boolean isDark, boolean isShowTitlebar){
         containers = new Panel[2];
-        position = new Position2I();
+
+        setSize(width, height);
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        position = new Position2I((int)((dimension.getWidth() - this.getWidth()) / 2), (int)((dimension.getHeight() - this.getHeight()) / 2));
+
         dark = isDark;
         perso = false;
         showtitlebar = isShowTitlebar;
@@ -71,10 +75,6 @@ public class Screen extends JFrame implements GuYoComponent {
         titlebarposition = TOP;
 
         //setting size and position of the screen
-        setSize(width, height);
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        position.setX((int) ((dimension.getWidth() - this.getWidth()) / 2));
-        position.setY((int) ((dimension.getHeight() - this.getHeight()) / 2));
         setLocation(position.getX(), position.getY());
     }
 
@@ -217,20 +217,38 @@ public class Screen extends JFrame implements GuYoComponent {
                 changeTitlebarSize(30);
                 getTitlebar().resizePanel(super.getWidth(), DEFAULT_TITLEBAR_SIZE);
                 getTitlebar().setPosition(0,0);
+
                 getMainPanel().resizePanel(super.getWidth(), super.getHeight() - DEFAULT_TITLEBAR_SIZE);
                 getMainPanel().setPosition(0, DEFAULT_TITLEBAR_SIZE);
+
+                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
+                    getTitlebar().getButtonAt(i).setPosition(super.getWidth() - (i + 1) * 45, 0);
+                }
+
             } else if (position == BOTTOM){
                 changeTitlebarSize(30);
                 getTitlebar().resizePanel(super.getWidth(), DEFAULT_TITLEBAR_SIZE);
                 getTitlebar().setPosition(0,super.getHeight() - DEFAULT_TITLEBAR_SIZE);
+
                 getMainPanel().resizePanel(super.getWidth(), super.getHeight() - DEFAULT_TITLEBAR_SIZE);
                 getMainPanel().setPosition(0, 0);
+
+                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
+                    getTitlebar().getButtonAt(i).setPosition(super.getWidth() - (i + 1) * 45, super.getHeight() - DEFAULT_TITLEBAR_SIZE);
+                }
+
             } else if (position == LEFT){
                 changeTitlebarSize(45);
                 getTitlebar().resizePanel(DEFAULT_TITLEBAR_SIZE, super.getHeight());
                 getTitlebar().setPosition(0,0);
                 getMainPanel().resizePanel(super.getWidth() - DEFAULT_TITLEBAR_SIZE, super.getHeight());
                 getMainPanel().setPosition(DEFAULT_TITLEBAR_SIZE, 0);
+
+                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
+                    getTitlebar().getButtonAt(i).resizeButton(45, 30);
+                    getTitlebar().getButtonAt(i).setPosition(0, super.getHeight() - (i + 1) * 30);
+                }
+
             } else if (position == RIGHT) {
                 changeTitlebarSize(45);
                 getTitlebar().resizePanel(DEFAULT_TITLEBAR_SIZE, super.getHeight());

@@ -21,10 +21,6 @@ public class Constant {
 
     public static Color DEFAULT_RED = new Color(220, 0, 0);
 
-    public static Color PERSO_THEME_MAIN = new Color(0,0,0);
-    public static Color PERSO_TITLEBAR_COLOR = new Color(0,0,0);
-    public static Color PERSO_COLOR_MOUSE_ON = new Color(0,0,0);
-
     /**
      * change the titlebar height of all windows
      * @param newheight the new height
