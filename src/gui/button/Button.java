@@ -1,11 +1,11 @@
 package gui.button;
 
-import gui.GuYoComponent;
+import gui.GuComponent;
 import static util.Constant.*;
 
 import javax.swing.*;
 
-public abstract class Button extends JButton implements GuYoComponent {
+public abstract class Button extends JButton implements GuComponent {
 
     protected boolean dark;
     protected boolean perso;

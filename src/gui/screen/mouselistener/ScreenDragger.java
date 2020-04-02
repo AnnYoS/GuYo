@@ -1,6 +1,6 @@
 package gui.screen.mouselistener;
 
-import gui.screen.Screen;
+import gui.screen.GuScreen;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,9 +14,9 @@ public class ScreenDragger implements MouseMotionListener, MouseListener {
     private int oldDragY;
     private int posClickX;
     private int posClickY;
-    private Screen screen;
+    private GuScreen screen;
 
-    public ScreenDragger(Screen s){
+    public ScreenDragger(GuScreen s){
         oldDragX = 0;
         oldDragY = 0;
         screen = s;

@@ -1,11 +1,12 @@
 package gui.screen;
 
-import gui.GuYoComponent;
+import gui.GuComponent;
 import gui.button.defaultbutton.DefaultButton;
 import gui.panel.Panel;
 import gui.panel.bar.DefaultTitlebar;
 import gui.panel.container.DefaultPanel;
 import gui.screen.mouselistener.ScreenDragger;
+import gui.view.GuIconPair;
 import util.Position2I;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ import java.awt.*;
 
 import static util.Constant.*;
 
-public class Screen extends JFrame implements GuYoComponent {
+public class GuScreen extends JFrame implements GuComponent {
 
     private Position2I position;
     private boolean dark;
@@ -23,7 +24,7 @@ public class Screen extends JFrame implements GuYoComponent {
     private Panel[] containers;
     private int titlebarposition;
 
-    public Screen(int width, int height, boolean isDark, boolean isShowTitlebar){
+    public GuScreen(int width, int height, boolean isDark, boolean isShowTitlebar){
         super();
         initVariables(width, height, isDark, isShowTitlebar);
         initContainers();
@@ -33,7 +34,7 @@ public class Screen extends JFrame implements GuYoComponent {
         setVisible(true);
     }
 
-    public Screen(boolean isDark, boolean isShowTitlebar){
+    public GuScreen(boolean isDark, boolean isShowTitlebar){
         super();
         initVariables(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, isDark, isShowTitlebar);
         initContainers();
@@ -44,7 +45,7 @@ public class Screen extends JFrame implements GuYoComponent {
 
     }
 
-    public Screen(){
+    public GuScreen(){
         super();
         initVariables(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, false, true);
         initContainers();
@@ -111,7 +112,8 @@ public class Screen extends JFrame implements GuYoComponent {
         DefaultButton exit;
         int nbbuttons = getTitlebar().getButtons().size();
 
-        exit = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth() - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/crossblack.png", "assets/crosswhite.png");
+        GuIconPair icons = new GuIconPair("assets/cross", ".png");
+        exit = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth() - (nbbuttons + 1)*45, 0, this.dark, showtitlebar, icons);
         exit.changeColorWhenMouseOn(true);
         exit.addActionListener(e -> System.exit(0));
         getTitlebar().addButton(exit);
@@ -124,7 +126,8 @@ public class Screen extends JFrame implements GuYoComponent {
         DefaultButton reduce;
         int nbbuttons = getTitlebar().getButtons().size();
 
-        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth()- (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/reduceblack.png", "assets/reducewhite.png");
+        GuIconPair icons = new GuIconPair("assets/reduce", ".png");
+        reduce = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth()- (nbbuttons + 1)*45, 0, this.dark, showtitlebar, icons);
         reduce.changeColorWhenMouseOn(false);
 
         reduce.addActionListener(e -> {
@@ -151,7 +154,8 @@ public class Screen extends JFrame implements GuYoComponent {
         DefaultButton maximize;
         int nbbuttons = getTitlebar().getButtons().size();
 
-        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth() - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,"assets/maximazeblack.png", "assets/maximazewhite.png");
+        GuIconPair icons = new GuIconPair("assets/maximize", ".png");
+        maximize = new DefaultButton(45, DEFAULT_TITLEBAR_SIZE, super.getWidth() - (nbbuttons + 1)*45, 0, this.dark, showtitlebar,icons);
         maximize.changeColorWhenMouseOn(false);
 
         maximize.addActionListener(e -> {

@@ -1,6 +1,6 @@
 package gui;
 
-public interface GuYoComponent {
+public interface GuComponent {
 
     void setDarkMode();
     void setLightMode();

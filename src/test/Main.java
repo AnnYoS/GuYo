@@ -1,10 +1,8 @@
 package test;
 
-import gui.screen.Screen;
+import gui.screen.GuScreen;
 
 import javax.swing.*;
-
-import static util.Constant.*;
 
 public class Main {
 
@@ -18,7 +16,7 @@ public class Main {
     }
 
     public static void display(){
-        Screen screen = new Screen();
+        GuScreen screen = new GuScreen();
         //screen.setTitlebarPosition(LEFT);
         //screen.setDarkMode();
     }

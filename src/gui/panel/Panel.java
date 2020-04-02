@@ -1,13 +1,13 @@
 package gui.panel;
 
-import gui.GuYoComponent;
+import gui.GuComponent;
 import gui.button.defaultbutton.AbstractDefaultButton;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Panel extends JPanel implements GuYoComponent {
+public abstract class Panel extends JPanel implements GuComponent {
 
     protected boolean dark;
     protected boolean perso;

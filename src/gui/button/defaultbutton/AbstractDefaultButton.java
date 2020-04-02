@@ -1,7 +1,7 @@
 package gui.button.defaultbutton;
 
 import gui.button.Button;
-import gui.view.Images;
+import gui.view.GuIconPair;
 
 import javax.swing.*;
 
@@ -10,12 +10,12 @@ import static util.Constant.*;
 public abstract class AbstractDefaultButton extends Button {
 
     protected boolean withtitlebar;
-    protected Images images;
+    protected GuIconPair icons;
 
-    public AbstractDefaultButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, String darkimage, String lightimage){
+    public AbstractDefaultButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, GuIconPair icons){
         super(width, height, x, y, dark);
         this.withtitlebar = withtitlebar;
-        images = new Images(darkimage, lightimage);
+        this.icons = new GuIconPair(icons.getDarkIcon(), icons.getLightIcon());
         setDefaultColor();
     }
 
@@ -29,7 +29,7 @@ public abstract class AbstractDefaultButton extends Button {
         } else {
             setBackground(DARK_THEME.getMainColor());
         }
-        setImageOnButton(images.getLightimage());
+        setImageOnButton(icons.getLightIcon().getIcon());
         perso = false;
         dark = true;
     }
@@ -44,7 +44,7 @@ public abstract class AbstractDefaultButton extends Button {
         } else {
             setBackground(LIGHT_THEME.getMainColor());
         }
-        setImageOnButton(images.getDarkimage());
+        setImageOnButton(icons.getDarkIcon().getIcon());
         perso = false;
         dark = false;
     }
@@ -59,7 +59,7 @@ public abstract class AbstractDefaultButton extends Button {
         } else {
             setBackground(PERSO_THEME.getMainColor());
         }
-        setImageOnButton(images.getDarkimage());
+        setImageOnButton(icons.getDarkIcon().getIcon());
         dark = false;
         perso = true;
     }
@@ -75,14 +75,14 @@ public abstract class AbstractDefaultButton extends Button {
             } else {
                 setBackground(DARK_THEME.getMainColor());
             }
-            setImageOnButton(images.getLightimage());
+            setImageOnButton(icons.getLightIcon().getIcon());
         } else {
             if(withtitlebar) {
                 setBackground(LIGHT_THEME.getSecondaryColor());
             } else {
                 setBackground(LIGHT_THEME.getMainColor());
             }
-            setImageOnButton(images.getDarkimage());
+            setImageOnButton(icons.getDarkIcon().getIcon());
         }
         if(perso){
             if(withtitlebar) {
@@ -90,7 +90,7 @@ public abstract class AbstractDefaultButton extends Button {
             } else {
                 setBackground(PERSO_THEME.getMainColor());
             }
-            setImageOnButton(images.getDarkimage());
+            setImageOnButton(icons.getDarkIcon().getIcon());
         }
     }
 
@@ -111,10 +111,10 @@ public abstract class AbstractDefaultButton extends Button {
 
     /**
      * set the image on the button
-     * @param path of the image
+     * @param img image
      */
-    public void setImageOnButton(String path){
-        setIcon(new ImageIcon(path));
+    public void setImageOnButton(ImageIcon img){
+        setIcon(img);
     }
 
     /**
