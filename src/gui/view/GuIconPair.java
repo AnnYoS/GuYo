@@ -1,7 +1,5 @@
 package gui.view;
 
-import javax.swing.*;
-
 public class GuIconPair {
 
     private GuIcon darkIcon;
@@ -21,8 +19,8 @@ public class GuIconPair {
      * create new Icons who need to change color by copy
      */
     public GuIconPair(GuIcon icondark, GuIcon iconlight){
-        darkIcon = new GuIcon(icondark.getIcon().getDescription());
-        lightIcon = new GuIcon(iconlight.getIcon().getDescription());
+        darkIcon = new GuIcon(icondark.getPath());
+        lightIcon = new GuIcon(iconlight.getPath());
     }
 
     /**

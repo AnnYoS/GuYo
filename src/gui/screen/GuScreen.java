@@ -22,7 +22,7 @@ public class GuScreen extends JFrame implements GuComponent {
     private boolean showtitlebar;
     private boolean fullscreen;
     private Panel[] containers;
-    private int titlebarposition;
+    private int titlebarposition; //TOP, RIGHT, BOTTOM, LEFT
 
     public GuScreen(int width, int height, boolean isDark, boolean isShowTitlebar){
         super();

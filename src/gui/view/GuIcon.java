@@ -6,14 +6,10 @@ public class GuIcon {
 
     private ImageIcon icon;
 
-    /**
-     * create new Icon who don't need to change color
-     * @param path path of image
-     * @param extension image extension (ex: .png)
-     */
+
     public GuIcon(String path, String extension){
         icon = new ImageIcon(path+extension);
-        icon.setDescription(path+extension);
+        icon.setDescription(path+extension); //description use to keep the path of the image in memory
     }
 
     public GuIcon(String path){
@@ -35,5 +31,12 @@ public class GuIcon {
     public void setIcon(String path) {
         icon = new ImageIcon(path);
         icon.setDescription(path);
+    }
+
+    /**
+     * @return the path if needed of the image of this icon
+     */
+    public String getPath(){
+        return icon.getDescription();
     }
 }
