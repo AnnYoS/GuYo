@@ -12,17 +12,27 @@ public abstract class Titlebar extends Panel {
     public Titlebar(int width, int height, boolean dark, boolean show, int titlebarposition) {
         super(dark, titlebarposition);
 
-        if(this.titlebarposition == TOP){
-            setBounds(0,0, super.getWidth(), DEFAULT_TITLEBAR_SIZE);
-        } else if (this.titlebarposition == LEFT){
-            setBounds(0,0, DEFAULT_TITLEBAR_SIZE, super.getHeight());
-        } else if (this.titlebarposition == RIGHT){
-            setBounds(super.getWidth() - DEFAULT_TITLEBAR_SIZE,0, DEFAULT_TITLEBAR_SIZE, super.getHeight());
-        } else {
-            setBounds(0,super.getHeight() - DEFAULT_TITLEBAR_SIZE, super.getWidth(), DEFAULT_TITLEBAR_SIZE);
-        }
-
         isShow = show;
+
+        initialize(width, height);
+    }
+
+    /**
+     * intialize the titlebar
+     * @param width dimension
+     * @param height dimension
+     */
+    @Override
+    protected void initialize(int width, int height) {
+        if(this.titlebarposition == TOP){
+            setBounds(0,0, width, DEFAULT_TITLEBAR_SIZE);
+        } else if (this.titlebarposition == LEFT){
+            setBounds(0,0, DEFAULT_TITLEBAR_SIZE, height);
+        } else if (this.titlebarposition == RIGHT){
+            setBounds(width - DEFAULT_TITLEBAR_SIZE,0, DEFAULT_TITLEBAR_SIZE, height);
+        } else {
+            setBounds(0,height - DEFAULT_TITLEBAR_SIZE, width, DEFAULT_TITLEBAR_SIZE);
+        }
 
         if(dark){
             if(isShow){
@@ -84,7 +94,11 @@ public abstract class Titlebar extends Panel {
      * @param height dimension
      */
     public void resizePanel(int width, int height){
-        setSize(width, height);
+        if(titlebarposition == TOP || titlebarposition == BOTTOM){
+            setSize(width, DEFAULT_TITLEBAR_SIZE);
+        } else {
+            setSize(DEFAULT_TITLEBAR_SIZE, height);
+        }
     }
 
     /**

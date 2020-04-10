@@ -24,6 +24,13 @@ public abstract class Panel extends JPanel implements GuComponent {
     }
 
     /**
+     * initalize the panel
+     * @param width dimension
+     * @param height dimension
+     */
+    protected abstract void initialize(int width, int height);
+
+    /**
      * @return the list of buttons in the panel
      */
     public List<AbstractDefaultButton> getButtons() {
@@ -77,4 +84,6 @@ public abstract class Panel extends JPanel implements GuComponent {
      * change the theme into personnal
      */
     public abstract void setPersonnalTheme();
+
+
 }

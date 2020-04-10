@@ -9,11 +9,16 @@ public abstract class MainContainer extends Panel {
 
     public MainContainer(int width, int height, boolean dark, int titlebarposition) {
         super(dark, titlebarposition);
-        if(dark){
-            setBackground(DARK_THEME.getMainColor());
-        } else {
-            setBackground(LIGHT_THEME.getMainColor());
-        }
+        initialize(width, height);
+    }
+
+    /**
+     * initialize the panel
+     * @param width dimension
+     * @param height dimension
+     */
+    @Override
+    protected void initialize(int width, int height) {
         if(this.titlebarposition == TOP){
             setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
         } else if (this.titlebarposition == LEFT){
@@ -22,6 +27,12 @@ public abstract class MainContainer extends Panel {
             setBounds(0, 0, width - DEFAULT_TITLEBAR_SIZE, height);
         } else {
             setBounds(0,0, width, height - DEFAULT_TITLEBAR_SIZE);
+        }
+
+        if(dark){
+            setBackground(DARK_THEME.getMainColor());
+        } else {
+            setBackground(LIGHT_THEME.getMainColor());
         }
     }
 
@@ -70,7 +81,11 @@ public abstract class MainContainer extends Panel {
      * @param height dimension
      */
     public void resizePanel(int width, int height){
-        setSize(width, height);
+        if(titlebarposition == TOP || titlebarposition == BOTTOM){
+            setSize(width, height - DEFAULT_TITLEBAR_SIZE);
+        } else {
+            setSize(width - DEFAULT_TITLEBAR_SIZE, height);
+        }
     }
 
     /**
