@@ -12,7 +12,8 @@ public class Constant {
     public static final int BOTTOM = 7;
     public static final int LEFT = 8;
 
-    public static int DEFAULT_TITLEBAR_SIZE = 30;
+    public static int DEFAULT_TITLEBAR_SIZE = 40;
+    public static int DEFAULT_BUTTON_SIZE = 40;
     public static int BORDER = 5;
 
     public static Theme DARK_THEME = new Theme(new Color(40, 40, 40), new Color(55, 55, 55), new Color(70, 70, 70));

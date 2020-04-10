@@ -9,10 +9,19 @@ public abstract class Titlebar extends Panel {
 
     private boolean isShow;
 
-    public Titlebar(int width, int height, boolean dark, boolean show) {
-        super(width, height, dark);
+    public Titlebar(int width, int height, boolean dark, boolean show, int titlebarposition) {
+        super(dark, titlebarposition);
 
-        setBounds(0,0, width, DEFAULT_TITLEBAR_SIZE);
+        if(this.titlebarposition == TOP){
+            setBounds(0,0, super.getWidth(), DEFAULT_TITLEBAR_SIZE);
+        } else if (this.titlebarposition == LEFT){
+            setBounds(0,0, DEFAULT_TITLEBAR_SIZE, super.getHeight());
+        } else if (this.titlebarposition == RIGHT){
+            setBounds(super.getWidth() - DEFAULT_TITLEBAR_SIZE,0, DEFAULT_TITLEBAR_SIZE, super.getHeight());
+        } else {
+            setBounds(0,super.getHeight() - DEFAULT_TITLEBAR_SIZE, super.getWidth(), DEFAULT_TITLEBAR_SIZE);
+        }
+
         isShow = show;
 
         if(dark){

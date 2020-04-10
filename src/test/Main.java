@@ -4,7 +4,7 @@ import gui.screen.GuScreen;
 
 import javax.swing.*;
 
-import static util.Constant.LEFT;
+import static util.Constant.*;
 
 public class Main {
 
@@ -18,8 +18,7 @@ public class Main {
     }
 
     public static void display(){
-        GuScreen screen = new GuScreen();
-        screen.setTitlebarPosition(LEFT);
-        screen.setDarkMode();
+        GuScreen screen = new GuScreen(LEFT);
+
     }
 }

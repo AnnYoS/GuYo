@@ -7,20 +7,21 @@ import static util.Constant.*;
 
 public abstract class MainContainer extends Panel {
 
-    protected boolean havetitlebar;
-
-    public MainContainer(int width, int height, boolean dark, boolean withtitlebar) {
-        super(width, height, dark);
-        this.havetitlebar = withtitlebar;
+    public MainContainer(int width, int height, boolean dark, int titlebarposition) {
+        super(dark, titlebarposition);
         if(dark){
             setBackground(DARK_THEME.getMainColor());
         } else {
             setBackground(LIGHT_THEME.getMainColor());
         }
-        if(withtitlebar) {
+        if(this.titlebarposition == TOP){
             setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
+        } else if (this.titlebarposition == LEFT){
+            setBounds(DEFAULT_TITLEBAR_SIZE, 0, width - DEFAULT_TITLEBAR_SIZE, height);
+        } else if (this.titlebarposition == RIGHT){
+            setBounds(0, 0, width - DEFAULT_TITLEBAR_SIZE, height);
         } else {
-            setSize(width, height);
+            setBounds(0,0, width, height - DEFAULT_TITLEBAR_SIZE);
         }
     }
 

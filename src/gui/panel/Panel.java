@@ -11,12 +11,15 @@ public abstract class Panel extends JPanel implements GuComponent {
 
     protected boolean dark;
     protected boolean perso;
+    protected int titlebarposition; //TOP, LEFT, RIGHT, BOTTOM
+
     protected List<AbstractDefaultButton> buttons;
 
-    public Panel(int width, int height, boolean dark) {
+    public Panel(boolean dark, int titlebarposition) {
         super();
         this.dark = dark;
         this.perso = false;
+        this.titlebarposition = titlebarposition;
         buttons = new ArrayList<>();
     }
 
