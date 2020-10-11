@@ -18,7 +18,8 @@ public class Main {
     }
 
     public static void display(){
-        GuScreen screen = new GuScreen(1000, 800, true, false);
+        GuScreen screen = new GuScreen(1000, 800, true, true);
         //screen.setDarkMode();
+
     }
 }

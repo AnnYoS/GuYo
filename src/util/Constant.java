@@ -1,5 +1,8 @@
 package util;
 
+import gui.view.GuIcon;
+import gui.view.GuIconPair;
+
 import java.awt.*;
 
 public class Constant {
@@ -12,8 +15,9 @@ public class Constant {
     public static final int BOTTOM = 7;
     public static final int LEFT = 8;
 
-    public static int DEFAULT_TITLEBAR_SIZE = 40;
-    public static int DEFAULT_BUTTON_SIZE = 40;
+    public static int DEFAULT_TITLEBAR_SIZE = 30;
+    public static int DEFAULT_BUTTON_HEIGHT = 30;
+    public static int DEFAULT_BUTTON_WIDTH = 45;
     public static int BORDER = 5;
 
     public static Theme DARK_THEME = new Theme(new Color(40, 40, 40), new Color(55, 55, 55), new Color(70, 70, 70));
@@ -21,6 +25,11 @@ public class Constant {
     public static Theme PERSO_THEME = new Theme(new Color(0,0,0), new Color(0,0,0), new Color(0,0,0));
 
     public static Color DEFAULT_RED = new Color(220, 0, 0);
+
+    public static GuIconPair EXIT_ICON = new GuIconPair("assets/cross", ".png");
+    public static GuIconPair REDUCE_ICON = new GuIconPair("assets/reduce", ".png");
+    public static GuIconPair MAXIMIZE_ICON = new GuIconPair("assets/maximize", ".png");
+    public static GuIconPair MAXIMIZE_FS_ICON = new GuIconPair("assets/maximize_fs", ".png");
 
     /**
      * change the titlebar height of all windows

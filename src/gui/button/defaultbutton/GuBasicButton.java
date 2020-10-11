@@ -94,6 +94,11 @@ public abstract class GuBasicButton extends GuButton {
         }
     }
 
+    public void changeIcons(GuIconPair pair){
+        this.icons = new GuIconPair(pair.getDarkIcon(), pair.getLightIcon());
+        setDefaultColor();
+    }
+
     /**
      * change the color when the mouse is on
      */
