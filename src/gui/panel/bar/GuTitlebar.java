@@ -1,15 +1,15 @@
 package gui.panel.bar;
 
-import gui.button.defaultbutton.AbstractDefaultButton;
-import gui.panel.Panel;
+import gui.button.defaultbutton.GuBasicButton;
+import gui.panel.GuPanel;
 
 import static util.Constant.*;
 
-public abstract class Titlebar extends Panel {
+public abstract class GuTitlebar extends GuPanel {
 
     private boolean isShow;
 
-    public Titlebar(int width, int height, boolean dark, boolean show, int titlebarposition) {
+    public GuTitlebar(int width, int height, boolean dark, boolean show, int titlebarposition) {
         super(dark, titlebarposition);
 
         isShow = show;
@@ -55,7 +55,7 @@ public abstract class Titlebar extends Panel {
     @Override
     public void setDarkMode() {
         setBackground(DARK_THEME.getSecondaryColor());
-        for (AbstractDefaultButton b : buttons) {
+        for (GuBasicButton b : defaultbuttons) {
             b.setDarkMode();
         }
         dark = true;
@@ -68,7 +68,7 @@ public abstract class Titlebar extends Panel {
     @Override
     public void setLightMode() {
         setBackground(DARK_THEME.getSecondaryColor());
-        for(AbstractDefaultButton b : buttons){
+        for(GuBasicButton b : defaultbuttons){
             b.setLightMode();
         }
         dark = true;
@@ -81,7 +81,7 @@ public abstract class Titlebar extends Panel {
     @Override
     public void setPersonnalTheme() {
         setBackground(PERSO_THEME.getSecondaryColor());
-        for(AbstractDefaultButton b : buttons){
+        for(GuBasicButton b : defaultbuttons){
             b.setPersonnalTheme();
         }
         dark = false;

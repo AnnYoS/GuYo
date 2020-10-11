@@ -1,10 +1,10 @@
 package gui.screen;
 
 import gui.GuComponent;
-import gui.button.defaultbutton.DefaultButton;
-import gui.panel.Panel;
-import gui.panel.bar.DefaultTitlebar;
-import gui.panel.container.DefaultPanel;
+import gui.button.defaultbutton.GuDefaultBasicButton;
+import gui.panel.GuPanel;
+import gui.panel.bar.GuDefaultTitlebar;
+import gui.panel.container.GuDefaultContainer;
 import gui.screen.mouselistener.ScreenDragger;
 import gui.view.GuIconPair;
 import util.Position2I;
@@ -17,6 +17,7 @@ import static util.Constant.*;
 public class GuScreen extends JFrame implements GuComponent {
 
     private Position2I position;
+    private Dimension dscreen;
 
     private boolean dark;
     private boolean perso;
@@ -24,7 +25,7 @@ public class GuScreen extends JFrame implements GuComponent {
     private boolean fullscreen;
     private int titlebarposition; //TOP, RIGHT, BOTTOM, LEFT
 
-    private Panel[] containers;
+    private GuPanel[] containers;
 
     public GuScreen(int width, int height, boolean isDark, boolean isShowTitlebar){
         super();
@@ -71,9 +72,11 @@ public class GuScreen extends JFrame implements GuComponent {
      * @param tbposition the position of the titlebar
      */
     private void initVariables(int width, int height, boolean isDark, boolean isShowTitlebar, int tbposition){
-        containers = new Panel[2];
+        containers = new GuPanel[2];
 
         setSize(width, height);
+        dscreen.width = width;
+        dscreen.height = height;
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         position = new Position2I((int)((dimension.getWidth() - this.getWidth()) / 2), (int)((dimension.getHeight() - this.getHeight()) / 2));
 
@@ -92,12 +95,12 @@ public class GuScreen extends JFrame implements GuComponent {
      */
     private void initContainers(){
         setLayout(new BorderLayout());
-        DefaultPanel main = new DefaultPanel(super.getWidth(), super.getHeight(), dark, titlebarposition);
+        GuDefaultContainer main = new GuDefaultContainer(super.getWidth(), super.getHeight(), dark, titlebarposition);
         main.setLayout(null);
         containers[0] = main;
         add(getMainPanel());
 
-        DefaultTitlebar titlebar = new DefaultTitlebar(super.getWidth(), super.getHeight(), dark, showtitlebar, titlebarposition);
+        GuDefaultTitlebar titlebar = new GuDefaultTitlebar(super.getWidth(), super.getHeight(), dark, showtitlebar, titlebarposition);
         titlebar.setLayout(null);
         containers[1] = titlebar;
         add(getTitlebar());
@@ -117,18 +120,18 @@ public class GuScreen extends JFrame implements GuComponent {
      * initialize exit button at top right corner if we want it
      */
     private void initExitButton(){
-        DefaultButton exit;
-        int nbbuttons = getTitlebar().getButtons().size();
+        GuDefaultBasicButton exit;
+        int nbbuttons = getTitlebar().getDefaultButtons().size();
 
         GuIconPair icons = new GuIconPair("assets/cross", ".png");
         if(titlebarposition == TOP) {
-            exit = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, 0, dark, showtitlebar, icons);
+            exit = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, 0, dark, showtitlebar, icons);
         } else if(titlebarposition == BOTTOM){
-            exit = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            exit = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         } else if(titlebarposition == LEFT){
-            exit = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, 0, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            exit = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, 0, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         } else {
-            exit = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - DEFAULT_BUTTON_SIZE, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            exit = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - DEFAULT_BUTTON_SIZE, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         }
         exit.changeColorWhenMouseOn(true);
         exit.addActionListener(e -> System.exit(0));
@@ -139,18 +142,18 @@ public class GuScreen extends JFrame implements GuComponent {
      * initialize reduce button at top right corner if we want it
      */
     private void initReduceButton(){
-        DefaultButton reduce;
-        int nbbuttons = getTitlebar().getButtons().size();
+        GuDefaultBasicButton reduce;
+        int nbbuttons = getTitlebar().getDefaultButtons().size();
 
         GuIconPair icons = new GuIconPair("assets/reduce", ".png");
         if(titlebarposition == TOP) {
-            reduce = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, 0, dark, showtitlebar, icons);
+            reduce = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, 0, dark, showtitlebar, icons);
         } else if(titlebarposition == BOTTOM){
-            reduce = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            reduce = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         } else if(titlebarposition == LEFT){
-            reduce = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, 0, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            reduce = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, 0, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         } else {
-            reduce = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - DEFAULT_BUTTON_SIZE, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            reduce = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - DEFAULT_BUTTON_SIZE, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         }
         reduce.changeColorWhenMouseOn(false);
 
@@ -175,18 +178,18 @@ public class GuScreen extends JFrame implements GuComponent {
      * initialize maximize button at top right corner if we want it
      */
     private void initMaximizeButton(){
-        DefaultButton maximize;
-        int nbbuttons = getTitlebar().getButtons().size();
+        GuDefaultBasicButton maximize;
+        int nbbuttons = getTitlebar().getDefaultButtons().size();
 
         GuIconPair icons = new GuIconPair("assets/maximize", ".png");
         if(titlebarposition == TOP) {
-            maximize = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, 0, dark, showtitlebar, icons);
+            maximize = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, 0, dark, showtitlebar, icons);
         } else if(titlebarposition == BOTTOM){
-            maximize = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            maximize = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         } else if(titlebarposition == LEFT){
-            maximize = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, 0, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            maximize = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, 0, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         } else {
-            maximize = new DefaultButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - DEFAULT_BUTTON_SIZE, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
+            maximize = new GuDefaultBasicButton(DEFAULT_BUTTON_SIZE, DEFAULT_BUTTON_SIZE, super.getWidth() - DEFAULT_BUTTON_SIZE, super.getHeight() - (nbbuttons + 1) * DEFAULT_BUTTON_SIZE, dark, showtitlebar, icons);
         }
         maximize.changeColorWhenMouseOn(false);
 
@@ -210,15 +213,15 @@ public class GuScreen extends JFrame implements GuComponent {
             setSize(x, y);
             getMainPanel().resizePanel(x, y);
             getTitlebar().resizePanel(x, y);
-            for(int i = 0; i < getTitlebar().getButtons().size(); i++){
+            for(int i = 0; i < getTitlebar().getDefaultButtons().size(); i++){
                 if(titlebarposition == TOP){
-                    getTitlebar().getButtonAt(i).setLocation(x - (i + 1) * DEFAULT_BUTTON_SIZE, 0);
+                    getTitlebar().getDefaultButtonAt(i).setLocation(x - (i + 1) * DEFAULT_BUTTON_SIZE, 0);
                 } else if (titlebarposition == BOTTOM){
-                    getTitlebar().getButtonAt(i).setLocation(x - (i + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE);
+                    getTitlebar().getDefaultButtonAt(i).setLocation(x - (i + 1) * DEFAULT_BUTTON_SIZE, super.getHeight() - DEFAULT_BUTTON_SIZE);
                 } else if (titlebarposition == LEFT){
-                    getTitlebar().getButtonAt(i).setLocation(0, y - (i + 1) * DEFAULT_BUTTON_SIZE);
+                    getTitlebar().getDefaultButtonAt(i).setLocation(0, y - (i + 1) * DEFAULT_BUTTON_SIZE);
                 } else {
-                    getTitlebar().getButtonAt(i).setLocation(super.getHeight() - DEFAULT_BUTTON_SIZE, y - (i + 1) * DEFAULT_BUTTON_SIZE);
+                    getTitlebar().getDefaultButtonAt(i).setLocation(super.getHeight() - DEFAULT_BUTTON_SIZE, y - (i + 1) * DEFAULT_BUTTON_SIZE);
                 }
             }
 
@@ -262,8 +265,8 @@ public class GuScreen extends JFrame implements GuComponent {
                 getMainPanel().resizePanel(super.getWidth(), super.getHeight() - DEFAULT_TITLEBAR_SIZE);
                 getMainPanel().setPosition(0, DEFAULT_TITLEBAR_SIZE);
 
-                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
-                    getTitlebar().getButtonAt(i).setPosition(super.getWidth() - (i + 1) * 45, 0);
+                for(int i = 0; i < getTitlebar().getDefaultButtons().size(); i++){
+                    getTitlebar().getDefaultButtonAt(i).setPosition(super.getWidth() - (i + 1) * 45, 0);
                 }
 
             } else if (position == BOTTOM){
@@ -273,8 +276,8 @@ public class GuScreen extends JFrame implements GuComponent {
                 getMainPanel().resizePanel(super.getWidth(), super.getHeight() - DEFAULT_TITLEBAR_SIZE);
                 getMainPanel().setPosition(0, 0);
 
-                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
-                    getTitlebar().getButtonAt(i).setPosition(super.getWidth() - (i + 1) * 45, super.getHeight() - DEFAULT_TITLEBAR_SIZE);
+                for(int i = 0; i < getTitlebar().getDefaultButtons().size(); i++){
+                    getTitlebar().getDefaultButtonAt(i).setPosition(super.getWidth() - (i + 1) * 45, super.getHeight() - DEFAULT_TITLEBAR_SIZE);
                 }
 
             } else if (position == LEFT){
@@ -284,9 +287,9 @@ public class GuScreen extends JFrame implements GuComponent {
                 getMainPanel().resizePanel(super.getWidth() - DEFAULT_TITLEBAR_SIZE, super.getHeight());
                 getMainPanel().setPosition(DEFAULT_TITLEBAR_SIZE, 0);
 
-                for(int i = 0; i < getTitlebar().getButtons().size(); i++){
-                    getTitlebar().getButtonAt(i).resizeButton(45, 30);
-                    getTitlebar().getButtonAt(i).setPosition(0, super.getHeight() - (i + 1) * 30);
+                for(int i = 0; i < getTitlebar().getDefaultButtons().size(); i++){
+                    getTitlebar().getDefaultButtonAt(i).resizeButton(45, 30);
+                    getTitlebar().getDefaultButtonAt(i).setPosition(0, super.getHeight() - (i + 1) * 30);
                 }
 
             } else if (position == RIGHT) {
@@ -305,7 +308,7 @@ public class GuScreen extends JFrame implements GuComponent {
      */
     @Override
     public void setDarkMode() {
-        for (Panel p : containers) {
+        for (GuPanel p : containers) {
             p.setDarkMode();
         }
         perso = false;
@@ -318,7 +321,7 @@ public class GuScreen extends JFrame implements GuComponent {
      */
     @Override
     public void setLightMode() {
-        for (Panel p : containers) {
+        for (GuPanel p : containers) {
             p.setLightMode();
         }
         perso = false;
@@ -333,7 +336,7 @@ public class GuScreen extends JFrame implements GuComponent {
      */
     public void setPersonnalTheme(Color main, Color secondary, Color interaction) {
         changePersoTheme(main, secondary, interaction);
-        for (Panel p : containers) {
+        for (GuPanel p : containers) {
             p.setPersonnalTheme();
         }
         dark = false;
@@ -343,14 +346,14 @@ public class GuScreen extends JFrame implements GuComponent {
     /**
      * @return the main panel on the current screen
      */
-    public Panel getMainPanel(){
+    public GuPanel getMainPanel(){
         return containers[0];
     }
 
     /**
      * @return the titlebar of the screen
      */
-    public Panel getTitlebar(){
+    public GuPanel getTitlebar(){
         return containers[1];
     }
 
@@ -366,5 +369,12 @@ public class GuScreen extends JFrame implements GuComponent {
      */
     public boolean isShowTitlebar() {
         return showtitlebar;
+    }
+
+    /**
+     * @return dimension of the screen
+     */
+    public Dimension getScreenDimensions() {
+        return dscreen;
     }
 }

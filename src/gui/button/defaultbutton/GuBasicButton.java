@@ -1,18 +1,18 @@
 package gui.button.defaultbutton;
 
-import gui.button.Button;
+import gui.button.GuButton;
 import gui.view.GuIconPair;
 
 import javax.swing.*;
 
 import static util.Constant.*;
 
-public abstract class AbstractDefaultButton extends Button {
+public abstract class GuBasicButton extends GuButton {
 
     protected boolean withtitlebar;
     protected GuIconPair icons;
 
-    public AbstractDefaultButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, GuIconPair icons){
+    public GuBasicButton(int width, int height, int x, int y, boolean dark, boolean withtitlebar, GuIconPair icons){
         super(width, height, x, y, dark);
         this.withtitlebar = withtitlebar;
         this.icons = new GuIconPair(icons.getDarkIcon(), icons.getLightIcon());

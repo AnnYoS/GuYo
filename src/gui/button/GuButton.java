@@ -5,12 +5,12 @@ import static util.Constant.*;
 
 import javax.swing.*;
 
-public abstract class Button extends JButton implements GuComponent {
+public abstract class GuButton extends JButton implements GuComponent {
 
     protected boolean dark;
     protected boolean perso;
 
-    public Button(int width, int height, int x, int y, boolean dark) {
+    public GuButton(int width, int height, int x, int y, boolean dark) {
         this.dark = dark;
         perso = false;
         setBounds(x, y, width, height);

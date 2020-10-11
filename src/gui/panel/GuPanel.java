@@ -1,26 +1,26 @@
 package gui.panel;
 
 import gui.GuComponent;
-import gui.button.defaultbutton.AbstractDefaultButton;
+import gui.button.defaultbutton.GuBasicButton;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Panel extends JPanel implements GuComponent {
+public abstract class GuPanel extends JPanel implements GuComponent {
 
     protected boolean dark;
     protected boolean perso;
     protected int titlebarposition; //TOP, LEFT, RIGHT, BOTTOM
 
-    protected List<AbstractDefaultButton> buttons;
+    protected List<GuBasicButton> defaultbuttons;
 
-    public Panel(boolean dark, int titlebarposition) {
+    public GuPanel(boolean dark, int titlebarposition) {
         super();
         this.dark = dark;
-        this.perso = false;
         this.titlebarposition = titlebarposition;
-        buttons = new ArrayList<>();
+        perso = false;
+        defaultbuttons = new ArrayList<>();
     }
 
     /**
@@ -33,8 +33,8 @@ public abstract class Panel extends JPanel implements GuComponent {
     /**
      * @return the list of buttons in the panel
      */
-    public List<AbstractDefaultButton> getButtons() {
-        return buttons;
+    public List<GuBasicButton> getDefaultButtons() {
+        return defaultbuttons;
     }
 
     /**
@@ -42,27 +42,27 @@ public abstract class Panel extends JPanel implements GuComponent {
      * @param index the index of the button
      * @return the button
      */
-    public AbstractDefaultButton getButtonAt(int index){
-        return buttons.get(index);
+    public GuBasicButton getDefaultButtonAt(int index){
+        return defaultbuttons.get(index);
     }
 
     /**
      * add the button to the panel
      * @param b the button to add
      */
-    public void addButton(AbstractDefaultButton b){
+    public void addButton(GuBasicButton b){
         add(b);
-        buttons.add(b);
+        defaultbuttons.add(b);
     }
 
     /**
      * add multiple buttons to the panel
      * @param buttons to add
      */
-    public void addButtons(AbstractDefaultButton... buttons){
-        for(AbstractDefaultButton b : buttons){
+    public void addButtons(GuBasicButton... buttons){
+        for(GuBasicButton b : buttons){
             add(b);
-            this.buttons.add(b);
+            this.defaultbuttons.add(b);
         }
     }
 

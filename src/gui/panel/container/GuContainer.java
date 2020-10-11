@@ -1,13 +1,13 @@
 package gui.panel.container;
 
-import gui.button.defaultbutton.AbstractDefaultButton;
-import gui.panel.Panel;
+import gui.button.defaultbutton.GuBasicButton;
+import gui.panel.GuPanel;
 
 import static util.Constant.*;
 
-public abstract class MainContainer extends Panel {
+public abstract class GuContainer extends GuPanel {
 
-    public MainContainer(int width, int height, boolean dark, int titlebarposition) {
+    public GuContainer(int width, int height, boolean dark, int titlebarposition) {
         super(dark, titlebarposition);
         initialize(width, height);
     }
@@ -42,7 +42,7 @@ public abstract class MainContainer extends Panel {
     @Override
     public void setDarkMode() {
         setBackground(DARK_THEME.getMainColor());
-        for(AbstractDefaultButton b : buttons){
+        for(GuBasicButton b : defaultbuttons){
             b.setDarkMode();
         }
         perso = false;
@@ -55,7 +55,7 @@ public abstract class MainContainer extends Panel {
     @Override
     public void setLightMode() {
         setBackground(DARK_THEME.getMainColor());
-        for(AbstractDefaultButton b : buttons){
+        for(GuBasicButton b : defaultbuttons){
             b.setLightMode();
         }
         perso = false;
@@ -68,7 +68,7 @@ public abstract class MainContainer extends Panel {
     @Override
     public void setPersonnalTheme() {
         setBackground(PERSO_THEME.getMainColor());
-        for (AbstractDefaultButton b : buttons) {
+        for (GuBasicButton b : defaultbuttons) {
             b.setPersonnalTheme();
         }
         dark = false;
