@@ -1,7 +1,7 @@
 package gui.panel;
 
 import gui.GuComponent;
-import gui.button.defaultbutton.GuBasicButton;
+import gui.button.basicbutton.GuBasicButton;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -11,14 +11,12 @@ public abstract class GuPanel extends JPanel implements GuComponent {
 
     protected boolean dark;
     protected boolean perso;
-    protected int titlebarposition; //TOP, LEFT, RIGHT, BOTTOM
 
     protected List<GuBasicButton> defaultbuttons;
 
-    public GuPanel(boolean dark, int titlebarposition) {
+    public GuPanel(boolean dark) {
         super();
         this.dark = dark;
-        this.titlebarposition = titlebarposition;
         perso = false;
         defaultbuttons = new ArrayList<>();
     }

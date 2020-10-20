@@ -1,6 +1,6 @@
-package gui.button.defaultbutton;
+package gui.button.basicbutton;
 
-import gui.view.GuIconPair;
+import gui.view.icon.GuIconPair;
 
 public class GuDefaultBasicButton extends GuBasicButton {
 

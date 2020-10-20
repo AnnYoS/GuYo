@@ -1,7 +1,10 @@
 package gui.panel.bar;
 
-import gui.button.defaultbutton.GuBasicButton;
+import gui.button.basicbutton.GuBasicButton;
 import gui.panel.GuPanel;
+import gui.view.icon.GuIcon;
+
+import javax.swing.*;
 
 import static util.Constant.*;
 
@@ -9,11 +12,12 @@ public abstract class GuTitlebar extends GuPanel {
 
     private boolean isShow;
 
-    public GuTitlebar(int width, int height, boolean dark, boolean show, int titlebarposition) {
-        super(dark, titlebarposition);
+    private JLabel logo;
 
+    public GuTitlebar(int width, int height, boolean dark, boolean show) {
+        super(dark);
+        logo = new JLabel();
         isShow = show;
-
         initialize(width, height);
     }
 
@@ -24,15 +28,7 @@ public abstract class GuTitlebar extends GuPanel {
      */
     @Override
     protected void initialize(int width, int height) {
-        if(this.titlebarposition == TOP){
-            setBounds(0,0, width, DEFAULT_TITLEBAR_SIZE);
-        } else if (this.titlebarposition == LEFT){
-            setBounds(0,0, DEFAULT_TITLEBAR_SIZE, height);
-        } else if (this.titlebarposition == RIGHT){
-            setBounds(width - DEFAULT_TITLEBAR_SIZE,0, DEFAULT_TITLEBAR_SIZE, height);
-        } else {
-            setBounds(0,height - DEFAULT_TITLEBAR_SIZE, width, DEFAULT_TITLEBAR_SIZE);
-        }
+        setBounds(0,0, width, DEFAULT_TITLEBAR_SIZE);
 
         if(dark){
             if(isShow){
@@ -89,16 +85,26 @@ public abstract class GuTitlebar extends GuPanel {
     }
 
     /**
+     * set the logo to the titlebar
+     * @param logo of the application
+     */
+    public void setLogo(GuIcon logo, int x, int y){
+        this.logo.setIcon(logo.getIcon());
+        this.logo.setBounds(x, y, logo.getIcon().getIconWidth(), logo.getIcon().getIconHeight());
+        add(this.logo);
+    }
+
+    public void setLogoLocation(int x, int y){
+        logo.setLocation(x, y);
+    }
+
+    /**
      * resize the titlebar
      * @param width dimension
      * @param height dimension
      */
     public void resizePanel(int width, int height){
-        if(titlebarposition == TOP || titlebarposition == BOTTOM){
-            setSize(width, DEFAULT_TITLEBAR_SIZE);
-        } else {
-            setSize(DEFAULT_TITLEBAR_SIZE, height);
-        }
+        setSize(width, DEFAULT_TITLEBAR_SIZE);
     }
 
     /**

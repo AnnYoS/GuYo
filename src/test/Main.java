@@ -4,8 +4,6 @@ import gui.screen.GuScreen;
 
 import javax.swing.*;
 
-import static util.Constant.*;
-
 public class Main {
 
     public static void main(String[] args){
@@ -18,8 +16,10 @@ public class Main {
     }
 
     public static void display(){
-        GuScreen screen = new GuScreen(1000, 800, true, true);
-        //screen.setDarkMode();
+        GuScreen screen = new GuScreen(900, 600, false);
+        screen.setDarkMode();
+        screen.setLogo("assets/logo.png", 10, 5);
+        screen.setLogoLocation(7, 5);
 
     }
 }

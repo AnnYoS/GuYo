@@ -1,7 +1,7 @@
-package gui.button.defaultbutton;
+package gui.button.basicbutton;
 
 import gui.button.GuButton;
-import gui.view.GuIconPair;
+import gui.view.icon.GuIconPair;
 
 import javax.swing.*;
 

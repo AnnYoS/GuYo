@@ -1,4 +1,6 @@
-package gui.view;
+package gui.view.icon;
+
+import gui.view.icon.GuIcon;
 
 public class GuIconPair {
 

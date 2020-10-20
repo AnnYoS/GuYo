@@ -1,14 +1,14 @@
 package gui.panel.container;
 
-import gui.button.defaultbutton.GuBasicButton;
+import gui.button.basicbutton.GuBasicButton;
 import gui.panel.GuPanel;
 
 import static util.Constant.*;
 
 public abstract class GuContainer extends GuPanel {
 
-    public GuContainer(int width, int height, boolean dark, int titlebarposition) {
-        super(dark, titlebarposition);
+    public GuContainer(int width, int height, boolean dark) {
+        super(dark);
         initialize(width, height);
     }
 
@@ -19,15 +19,7 @@ public abstract class GuContainer extends GuPanel {
      */
     @Override
     protected void initialize(int width, int height) {
-        if(this.titlebarposition == TOP){
-            setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
-        } else if (this.titlebarposition == LEFT){
-            setBounds(DEFAULT_TITLEBAR_SIZE, 0, width - DEFAULT_TITLEBAR_SIZE, height);
-        } else if (this.titlebarposition == RIGHT){
-            setBounds(0, 0, width - DEFAULT_TITLEBAR_SIZE, height);
-        } else {
-            setBounds(0,0, width, height - DEFAULT_TITLEBAR_SIZE);
-        }
+        setBounds(0, DEFAULT_TITLEBAR_SIZE, width, height - DEFAULT_TITLEBAR_SIZE);
 
         if(dark){
             setBackground(DARK_THEME.getMainColor());
@@ -80,12 +72,8 @@ public abstract class GuContainer extends GuPanel {
      * @param width dimension
      * @param height dimension
      */
-    public void resizePanel(int width, int height){
-        if(titlebarposition == TOP || titlebarposition == BOTTOM){
-            setSize(width, height - DEFAULT_TITLEBAR_SIZE);
-        } else {
-            setSize(width - DEFAULT_TITLEBAR_SIZE, height);
-        }
+    public void resizePanel(int width, int height) {
+        setSize(width, height - DEFAULT_TITLEBAR_SIZE);
     }
 
     /**

@@ -1,7 +1,6 @@
 package util;
 
-import gui.view.GuIcon;
-import gui.view.GuIconPair;
+import gui.view.icon.GuIconPair;
 
 import java.awt.*;
 

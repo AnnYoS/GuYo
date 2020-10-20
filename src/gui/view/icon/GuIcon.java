@@ -1,11 +1,10 @@
-package gui.view;
+package gui.view.icon;
 
 import javax.swing.*;
 
 public class GuIcon {
 
     private ImageIcon icon;
-
 
     public GuIcon(String path, String extension){
         icon = new ImageIcon(path+extension);
